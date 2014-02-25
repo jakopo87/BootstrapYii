@@ -10,7 +10,7 @@ BootstrapYii is a component for Yii which features:
 
 Installation
 ------------
-Copy the `bootstrap` folder into the component folder (default: protected/components).
+Create a `bootstrap` folder into the Yii's components folder (default: protected/components).
 
 Configuration
 ---------------

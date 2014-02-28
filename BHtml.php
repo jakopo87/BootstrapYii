@@ -928,7 +928,7 @@ class BHtml
      *                              see {@link BHtml::tag()};
      * @return string
      */
-    public static function label($label, $htmlOptions)
+    public static function label($label, $htmlOptions = array())
     {
         self::addClass(array('control-label' => self::getOption('screenReader', $htmlOptions) !== true), $htmlOptions);
 
@@ -963,7 +963,7 @@ class BHtml
         $htmlOptions['value'] = $value;
 
         $sizes = self::getOption('sizes', $htmlOptions, true);
-        
+
         $offset = self::getOption('offset', $htmlOptions, true);
 
         $containerOptions = self::getOption('containerOptions', $htmlOptions, true);
@@ -975,7 +975,7 @@ class BHtml
         $label = self::getOption('label', $htmlOptions, true);
 
         self::setChecked($htmlOptions);
-        
+
         if($sizes !== null)
         {
             $render.=self::openColumn($sizes, array('offset' => $offset !== NULL ? $offset : array()));
@@ -1055,7 +1055,7 @@ class BHtml
         $inline = self::getOption('inline', $htmlOptions, true);
 
         $label = self::getOption('label', $htmlOptions, true);
-        
+
         self::setChecked($htmlOptions);
 
         if($sizes !== NULL)

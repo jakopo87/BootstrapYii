@@ -1443,4 +1443,46 @@ class BHtml
         }
     }
 
+    /**
+     * Render a list of checkboxes
+     * @param string $name Name of the checkboxes, square brackes will be appended automatically;
+     * @param array $select Selected values by default;
+     * @param array $data Mixed array of data to populate the checkboes (label => value);
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::checkbox()};
+     * @return string
+     */
+    public static function checkBoxList($name, $select, $data, $htmlOptions = array())
+    {
+        $id = self::getOption('id', $htmlOptions, true);
+        if($id === null)
+        {
+            $id = $name;
+        }
+
+        $i = 0;
+
+        $render = '';
+
+        foreach($data as $value => $label)
+        {
+            $htmlOptions['label'] = $label;
+            $htmlOptions['id'] = "{$id}_{$i}";
+            $htmlOptions['value'] = $value;
+
+            if(in_array($value, $select) === true)
+            {
+                $htmlOptions['checked'] = true;
+            }
+
+            $render.=BHtml::checkBox("{$name}[]", $value, $htmlOptions);
+
+            unset($htmlOptions['checked']);
+
+            ++$i;
+        }
+
+        return $render;
+    }
+
 }

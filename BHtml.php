@@ -812,16 +812,36 @@ class BHtml
      * @param string $name Text area name;
      * @param string $value Text area value;
      * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              array <b>sizes</b>: mixed array containing the sizes for different devices: the keys
+     *                               are the column type and the value is the size;
      *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function textArea($name, $value = '', $htmlOptions = array())
     {
+        $sizes = self::getOption('sizes', $htmlOptions, true);
+
         $htmlOptions['name'] = $name;
 
         self::addClass('form-control', $htmlOptions);
 
-        return self::tag('textarea', $htmlOptions, $value);
+        if($sizes !== NULL)
+        {
+            $render = self::openColumn($sizes);
+        }
+        else
+        {
+            $render = '';
+        }
+
+        $render.=self::tag('textarea', $htmlOptions, $value);
+
+        if($sizes !== NULL)
+        {
+            $render.=BHtml::closeColumn();
+        }
+
+        return $render;
     }
 
     /**

@@ -1485,4 +1485,46 @@ class BHtml
         return $render;
     }
 
+    /**
+     * Render a group of radiobuttons.
+     * @param string $name Name of the radiobuttons;
+     * @param mixed $select Selected value by default;
+     * @param array $data Mixed array of data to populate the checkboes (label => value);
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::checkbox()};
+     * @return string
+     */
+    public static function radioButtonList($name, $select, $data, $htmlOptions = array())
+    {
+        $id = self::getOption('id', $htmlOptions, true);
+        if($id === null)
+        {
+            $id = $name;
+        }
+
+        $i = 0;
+
+        $render = '';
+
+        foreach($data as $value => $label)
+        {
+            $htmlOptions['label'] = $label;
+            $htmlOptions['id'] = "{$id}_{$i}";
+            $htmlOptions['value'] = $value;
+
+            if($value == $select)
+            {
+                $htmlOptions['checked'] = true;
+            }
+
+            $render.=BHtml::radioButton($name, $value, $htmlOptions);
+
+            unset($htmlOptions['checked']);
+
+            ++$i;
+        }
+
+        return $render;
+    }
+
 }

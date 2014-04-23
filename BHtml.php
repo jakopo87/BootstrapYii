@@ -1532,4 +1532,24 @@ class BHtml
     //TODO: navbar
     //TODO: breadcrumb(check Yii breadcrumb widget)
     //TODO: pagination(check Yii pager widget)
+    //TODO: badges
+    //TODO: jumbotron
+    //TODO: page header
+    //TODO: thumbnails
+    //TODO: alerts
+    //TODO: progress bars
+    //TODO: media objects
+    //TODO: list groups
+    //TODO: panels
+    //TODO: wells
+    //TODO: modals
+    //TODO: scrollspy
+    //TODO: tabs
+    //TODO: tooltips
+    //TODO: popovers
+    //TODO: alerts
+    //TODO: buttons (javascript)
+    //TODO: collapse (javascript)
+    //TODO: carousel (javascript)
+    //TODO: affix;
 }

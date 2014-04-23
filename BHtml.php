@@ -948,7 +948,7 @@ class BHtml
      *                              see {@link BHtml::tag()};
      * @return string
      */
-    public static function label($label, $htmlOptions = array())
+    public static function inputLabel($label, $htmlOptions = array())
     {
         self::addClass(array('control-label' => self::getOption('screenReader', $htmlOptions) !== true), $htmlOptions);
 
@@ -1527,4 +1527,9 @@ class BHtml
         return $render;
     }
 
+    //TODO: input groups
+    //TODO: navs
+    //TODO: navbar
+    //TODO: breadcrumb(check Yii breadcrumb widget)
+    //TODO: pagination(check Yii pager widget)
 }

@@ -1487,11 +1487,11 @@ class BHtml
 
     /**
      * Render a group of radiobuttons.
-     * @param string $name Name of the radiobuttons;
-     * @param mixed $select Selected value by default;
-     * @param array $data Mixed array of data to populate the checkboes (label => value);
-     * @param array $htmlOptions    List of attributes and other options:<br/>
-     *                              see {@link BHtml::checkbox()};
+     * @param string    $name           Name of the radiobuttons;
+     * @param mixed     $select         Selected value by default;
+     * @param array     $data           Mixed array of data to populate the checkboes (label => value);
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                      see {@link BHtml::checkbox()};
      * @return string
      */
     public static function radioButtonList($name, $select, $data, $htmlOptions = array())
@@ -1525,6 +1525,47 @@ class BHtml
         }
 
         return $render;
+    }
+
+    /**
+     * Render an input group.
+     * @param string $name          Name attribute of the input tag.
+     * @param mixed $value          Value of the input tag.
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              string <b>prepend</b>: add-on to be appended;
+     *                              string <b>prepend</b>: add-on to be prepended;
+     *                              array <b>inputOptions</b>: list of attributes and other options of the input tag, 
+     *                              see {@link BHtml::input()}.
+     * @return string
+     */
+    public static function inputGroup($name, $value, $htmlOptions)
+    {
+        self::addClass('input-group', $htmlOptions);
+
+        $inputOptions = self::getOption('inputOptions', $htmlOptions, true);
+        $inputOptions['name'] = $name;
+        $inputOptions['value'] = $value;
+
+        $append = self::getOption('append', $htmlOptions, true);
+        $prepend = self::getOption('prepend', $htmlOptions, true);
+
+        $result = self::openTag('div', $htmlOptions);
+
+        if($prepend !== NULL)
+        {
+            $result.=self::tag('span', array('class' => 'input-group-addon'), $prepend);
+        }
+
+        $result.=self::input('text', $name, $inputOptions);
+
+        if($append !== NULL)
+        {
+            $result.=self::tag('span', array('class' => 'input-group-addon'), $append);
+        }
+
+        $result.=self::closeTag('div');
+
+        return $result;
     }
 
     //TODO: input groups

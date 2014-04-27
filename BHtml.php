@@ -1592,6 +1592,8 @@ class BHtml
      */
     private static function inputGroupAddOn($htmlOptions = array())
     {
+        //TODO: button with dropdown
+        //TODO: segmended buttons
         self::addClass('input-group-addon', $htmlOptions);
 
         $innerOptions = self::getOption('innerOptions', $htmlOptions, true);
@@ -1630,12 +1632,27 @@ class BHtml
         return $result;
     }
 
-    //TODO: input groups
     //TODO: navs
     //TODO: navbar
     //TODO: breadcrumb(check Yii breadcrumb widget)
     //TODO: pagination(check Yii pager widget)
-    //TODO: badges
+
+    /**
+     * Render a badge.
+     * @param string    $content       Content of the badge.
+     * @param array     $htmlOptions    List of attributes and other options:
+     *                                  see {@link BHtml::tag()};
+     * @return string
+     */
+    public static function badge($content, $htmlOptions = array())
+    {
+        self::addClass('badge', $htmlOptions);
+
+        $result = self::tag('span', $htmlOptions, $content);
+
+        return $result;
+    }
+
     //TODO: jumbotron
     //TODO: page header
     //TODO: thumbnails

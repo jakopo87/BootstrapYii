@@ -1535,12 +1535,17 @@ class BHtml
      *                              string <b>prepend</b>: add-on to be appended;
      *                              string <b>prepend</b>: add-on to be prepended;
      *                              array <b>inputOptions</b>: list of attributes and other options of the input tag, 
-     *                              see {@link BHtml::input()}.
+     *                              see {@link BHtml::input()};
+     *                              string <b>inputSize</b>: make the input tag taller or smaller, allowed values are: 
+     *                              lg, sm;
      * @return string
      */
     public static function inputGroup($name, $value, $htmlOptions)
     {
         self::addClass('input-group', $htmlOptions);
+
+        $inputSize = self::getOption('inputSize', $htmlOptions, true);
+        self::addClass(array("input-group-$inputSize" => $inputSize !== null), $htmlOptions);
 
         $inputOptions = self::getOption('inputOptions', $htmlOptions, true);
         $inputOptions['name'] = $name;

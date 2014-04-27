@@ -1661,7 +1661,37 @@ class BHtml
     //TODO: media objects
     //TODO: list groups
     //TODO: panels
-    //TODO: wells
+
+    /**
+     * Open a div with a "well" effect.
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  string <b>wellSize</b>: change the padding of the tag, allowed values are: sm, 
+     *                                  lg;<br/>
+     *                                  see {@link BHtml::tag()};
+     * @return string
+     */
+    public static function openWell($htmlOptions = array())
+    {
+        self::addClass('well', $htmlOptions);
+
+        $wellSize = self::getOption('wellSize', $htmlOptions, true);
+        if($wellSize !== NULL)
+        {
+            self::addClass("well-$wellSize", $htmlOptions);
+        }
+
+        return self::tag('div', $htmlOptions, false, false);
+    }
+
+    /**
+     * Close a div with a "well" effect.
+     * @return string
+     */
+    public static function closeWell()
+    {
+        return self::closeTag('div');
+    }
+
     //TODO: modals
     //TODO: scrollspy
     //TODO: tabs

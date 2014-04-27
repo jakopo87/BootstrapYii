@@ -1187,6 +1187,7 @@ class BHtml
      */
     public static function button($content, $htmlOptions = array())
     {
+        /* Prevent form submit */
         $htmlOptions['type'] = 'button';
 
         self::setbuttonState($htmlOptions);
@@ -1579,6 +1580,11 @@ class BHtml
     /**
      * Render an input group add-on.
      * @param mixed $htmlOptions        Content of the addon or List of attributes and other options:
+     *                                  string <b>innerOptions</b>: list of attributes and other options of the inner 
+     *                                  tag:
+     *                                      string <b>content</b>: content of the inner tag (used only with "button" 
+     *                                      type);<br/>
+     *                                      see {@link BHtml::button()};
      *                                  string <b>text</b>: content of the add-on (used only with "text" type);
      *                                  string <b>type</b>: type of add-on, allowed values are: checkbox, text, radio (
      *                                  default is "text");
@@ -1588,10 +1594,10 @@ class BHtml
     {
         self::addClass('input-group-addon', $htmlOptions);
 
-        $inputOptions = self::getOption('inputOptions', $htmlOptions, true);
-        if($inputOptions === NULL)
+        $innerOptions = self::getOption('innerOptions', $htmlOptions, true);
+        if($innerOptions === NULL)
         {
-            $inputOptions = array();
+            $innerOptions = array();
         }
         $text = self::getOption('text', $htmlOptions, true);
         $type = self::getOption('type', $htmlOptions, true);
@@ -1601,12 +1607,16 @@ class BHtml
         switch($type)
         {
             case 'radio':
-                $inputOptions['type'] = 'radio';
-                $content = self::tag('input', $inputOptions, false);
+                $innerOptions['type'] = 'radio';
+                $content = self::tag('input', $innerOptions, false);
                 break;
             case 'checkbox':
-                $inputOptions['type'] = 'checkbox';
-                $content = self::tag('input', $inputOptions, false);
+                $innerOptions['type'] = 'checkbox';
+                $content = self::tag('input', $innerOptions, false);
+                break;
+            case 'button':
+                $innerContent = self::getOption('content', $innerOptions, true);
+                $content = self::button($innerContent, $innerOptions);
                 break;
             case 'text':
             default:

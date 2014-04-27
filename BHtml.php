@@ -1268,14 +1268,15 @@ class BHtml
             case 'bg':
                 $allowedValues = array('primary', 'success', 'info', 'warning', 'danger');
                 break;
-            case 'panel':
-                $allowedValues = array('default', 'primary', 'success', 'info', 'warning', 'danger');
-                break;
             case 'btn':
                 $allowedValues = array('default', 'primary', 'success', 'info', 'warning', 'danger', 'link');
                 break;
             case 'has':
                 $allowedValues = array('success', 'warning', 'error');
+                break;
+            case 'label':
+            case 'panel':
+                $allowedValues = array('default', 'primary', 'success', 'info', 'warning', 'danger');
                 break;
             case 'text':
                 $allowedValues = array('muted', 'primary', 'success', 'info', 'warning', 'danger');
@@ -1718,6 +1719,20 @@ class BHtml
     public static function closeWell()
     {
         return self::closeTag('div');
+    }
+
+    /**
+     * Render a textual label(span).
+     * @param string    $content        Content of the label
+     * @param array     $htmlOptions    List of attributes and other options;
+     * @return string
+     */
+    public static function label($content, $htmlOptions)
+    {
+        self::addClass('label', $htmlOptions);
+        self::setStateStyle('label', 'labelState', $htmlOptions);
+
+        return self::tag('span', $htmlOptions, $content);
     }
 
 //TODO: modals

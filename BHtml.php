@@ -1268,6 +1268,9 @@ class BHtml
             case 'bg':
                 $allowedValues = array('primary', 'success', 'info', 'warning', 'danger');
                 break;
+            case 'panel':
+                $allowedValues = array('default', 'primary', 'success', 'info', 'warning', 'danger');
+                break;
             case 'btn':
                 $allowedValues = array('default', 'primary', 'success', 'info', 'warning', 'danger', 'link');
                 break;
@@ -1592,8 +1595,8 @@ class BHtml
      */
     private static function inputGroupAddOn($htmlOptions = array())
     {
-        //TODO: button with dropdown
-        //TODO: segmended buttons
+//TODO: button with dropdown
+//TODO: segmended buttons
         self::addClass('input-group-addon', $htmlOptions);
 
         $innerOptions = self::getOption('innerOptions', $htmlOptions, true);
@@ -1632,10 +1635,10 @@ class BHtml
         return $result;
     }
 
-    //TODO: navs
-    //TODO: navbar
-    //TODO: breadcrumb(check Yii breadcrumb widget)
-    //TODO: pagination(check Yii pager widget)
+//TODO: navs
+//TODO: navbar
+//TODO: breadcrumb(check Yii breadcrumb widget)
+//TODO: pagination(check Yii pager widget)
 
     /**
      * Render a badge.
@@ -1653,14 +1656,39 @@ class BHtml
         return $result;
     }
 
-    //TODO: jumbotron
-    //TODO: page header
-    //TODO: thumbnails
-    //TODO: alerts
-    //TODO: progress bars
-    //TODO: media objects
-    //TODO: list groups
-    //TODO: panels
+//TODO: jumbotron
+//TODO: page header
+//TODO: thumbnails
+//TODO: alerts
+//TODO: progress bars
+//TODO: media objects
+//TODO: list groups
+//TODO: panels
+
+    /**
+     * Open a panel.
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  string <b>panelState</b>: contextual state of the panel, allowed values are: 
+     *                                  danger, default, info, primary, success, warning;<br/>
+     *                                  see {@link BHtml::openTag()};
+     */
+    public static function openPanel($htmlOptions = array())
+    {
+        self::addClass('panel', $htmlOptions);
+        self::setStateStyle('panel', 'panelState', $htmlOptions);
+
+        $result = self::openTag('div', $htmlOptions);
+        return $result;
+    }
+
+    /**
+     * Close a panel.
+     * @return string
+     */
+    public static function closePanel()
+    {
+        return self::closeTag('div');
+    }
 
     /**
      * Open a div with a "well" effect.
@@ -1692,14 +1720,14 @@ class BHtml
         return self::closeTag('div');
     }
 
-    //TODO: modals
-    //TODO: scrollspy
-    //TODO: tabs
-    //TODO: tooltips
-    //TODO: popovers
-    //TODO: alerts
-    //TODO: buttons (javascript)
-    //TODO: collapse (javascript)
-    //TODO: carousel (javascript)
-    //TODO: affix;
+//TODO: modals
+//TODO: scrollspy
+//TODO: tabs
+//TODO: tooltips
+//TODO: popovers
+//TODO: alerts
+//TODO: buttons (javascript)
+//TODO: collapse (javascript)
+//TODO: carousel (javascript)
+//TODO: affix;
 }

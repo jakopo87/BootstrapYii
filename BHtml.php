@@ -1596,8 +1596,8 @@ class BHtml
      */
     private static function inputGroupAddOn($htmlOptions = array())
     {
-//TODO: button with dropdown
-//TODO: segmended buttons
+//PENDING: button with dropdown
+//PENDING: segmented buttons
         self::addClass('input-group-addon', $htmlOptions);
 
         $innerOptions = self::getOption('innerOptions', $htmlOptions, true);
@@ -1657,14 +1657,32 @@ class BHtml
         return $result;
     }
 
-//TODO: jumbotron
+    /**
+     * Open a jumbotron.
+     * @param array     $htmlOptions        List of attributes and other options:<br/>
+     *                                      see {@link BHtml::tag()};
+     * @return string
+     */
+    public static function openJumbotron($htmlOptions = array())
+    {
+        self::addClass('jumbotron', $htmlOptions);
+
+        $result = self::openTag('div', $htmlOptions);
+
+        return $result;
+    }
+
+    public static function closeJumbotron()
+    {
+        return self::closeTag('div');
+    }
+
 //TODO: page header
 //TODO: thumbnails
 //TODO: alerts
 //TODO: progress bars
 //TODO: media objects
 //TODO: list groups
-//TODO: panels
 
     /**
      * Open a panel.

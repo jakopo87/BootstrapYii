@@ -1637,6 +1637,63 @@ class BHtml
     }
 
 //TODO: navs
+
+    /**
+     * Render a navigational menu.
+     * @param array $links          List of links with these attributes for each link:<br/>
+     *                              boolean <b>active</b>: make the link active;<br/>
+     *                              string <b>content</b>: text or content to be displayed;<br/>
+     *                              array <b>itemOptions</b>: list of attributes and other options of the link 
+     *                              container;
+     *                              array <b>linkOptions</b>: list of attributes and other options or the link:<br/>
+     *                                  see {@link BHtml::link()};<br/>
+     *                              string <b>url</b>: url of the link;<br/>
+     * @param array $htmlOptions    List of attributes and other options;
+     * @return string
+     */
+    public static function nav($links, $htmlOptions = array())
+    {
+        self::addClass('nav', $htmlOptions);
+
+        $navStyle = self::getOption('navStyle', $htmlOptions, true);
+        self::setNavStyle($navStyle, $htmlOptions);
+
+        $result = self::openTag('ul', $htmlOptions);
+
+        $link = $links !== NULL && is_array($links) ? $links : array();
+
+        foreach($links as $link)
+        {
+            $itemOptions = self::getOption('itemOptions', $link, true);
+            if($itemOptions === null)
+            {
+                $itemOptions = array();
+            }
+
+            $linkOptions = self::getOption('linkOptions', $link);
+            if($linkOptions === NULL)
+            {
+                $linkOptions = array();
+            }
+            $linkOptions['href'] = self::getOption('url', $link);
+
+            if(self::getOption('active', $link, true) === true)
+            {
+                self::addClass('active', $itemOptions);
+            }
+
+            $result.=self::openTag('li', $itemOptions);
+
+            $result.=self::tag('a', $linkOptions, $link['content']);
+
+            $result.=self::closeTag('li');
+        }
+
+        $result.=self::closeTag('ul');
+
+        return $result;
+    }
+
 //TODO: navbar
 //TODO: breadcrumb(check Yii breadcrumb widget)
 //TODO: pagination(check Yii pager widget)
@@ -1751,6 +1808,19 @@ class BHtml
         self::setStateStyle('label', 'labelState', $htmlOptions);
 
         return self::tag('span', $htmlOptions, $content);
+    }
+
+    /**
+     * Set the style for navs.
+     * @param string $navStyle      Style of the nav, allowed values are: tabs, pills;
+     * @param array $htmlOptions    List of attributes;
+     */
+    private static function setNavStyle($navStyle, &$htmlOptions)
+    {
+        if($navStyle !== NULL && in_array($navStyle, array('tabs', 'pills')))
+        {
+            self::addClass("nav-$navStyle", $htmlOptions);
+        }
     }
 
 //TODO: modals

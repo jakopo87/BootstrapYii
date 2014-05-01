@@ -1804,18 +1804,16 @@ class BHtml
         return $result;
     }
 
-//TODO: thumbnails
-//    <div class = "col-xs-6 col-md-3">
-//        <a href = "#" class = "thumbnail">
-//            <img data-src = "holder.js/100%x180" alt = "...">
-//        </a>
-//    </div>
     /**
      * Render a thumbnail.
      * @param string    $src            Source url of the image;
      * @param array     $sizes          Mixed array containing the sizes for different devices: the keys are constants  
      *                                  of the column type and the value is the amount of them;  
      * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  string <b>caption<b>: additional content for the image;<br/>
+     *                                  array <b>captionOptions</b>: list of attributes and other options for the  
+     *                                  caption of the image:<br/>
+     *                                      see {@link BHtml::tag()};
      *                                  array <b>imageOptions</b>: list of attributes and other options for the image:<br/>
      *                                      see {@link BHtml::image()};
      *                                  array <b>linkOptions</b>: list of attributes and other options: for the link 
@@ -1830,11 +1828,21 @@ class BHtml
         $linkOptions = self::getOption('linkOptions', $htmlOptions, true)? : array();
         self::addClass('thumbnail', $linkOptions);
 
+        $caption = self::getOption('caption', $htmlOptions, true);
+
+        $captionOptions = self::getOption('captionOptions', $htmlOptions, true)? : array();
+
         $result = self::openColumn($sizes, $htmlOptions);
 
         $image = self::image($src, $imageOptions);
 
         $result.=self::tag('a', $linkOptions, $image);
+
+        if($caption !== NULL)
+        {
+            self::addClass('caption', $captionOptions);
+            $result.=self::tag('div', $captionOptions, $caption);
+        }
 
         $result.=self::closeColumn();
 

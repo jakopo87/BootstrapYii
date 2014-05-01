@@ -1805,6 +1805,42 @@ class BHtml
     }
 
 //TODO: thumbnails
+//    <div class = "col-xs-6 col-md-3">
+//        <a href = "#" class = "thumbnail">
+//            <img data-src = "holder.js/100%x180" alt = "...">
+//        </a>
+//    </div>
+    /**
+     * Render a thumbnail.
+     * @param string    $src            Source url of the image;
+     * @param array     $sizes          Mixed array containing the sizes for different devices: the keys are constants  
+     *                                  of the column type and the value is the amount of them;  
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  array <b>imageOptions</b>: list of attributes and other options for the image:<br/>
+     *                                      see {@link BHtml::image()};
+     *                                  array <b>linkOptions</b>: list of attributes and other options: for the link 
+     *                                  wrapping the image:<br/>
+     *                                      see {@link BHtml::tag()};
+     * @return string
+     */
+    public static function thumbnail($src, $sizes, $htmlOptions = array())
+    {
+        $imageOptions = self::getOption('imageOptions', $htmlOptions, true)? : array();
+
+        $linkOptions = self::getOption('linkOptions', $htmlOptions, true)? : array();
+        self::addClass('thumbnail', $linkOptions);
+
+        $result = self::openColumn($sizes, $htmlOptions);
+
+        $image = self::image($src, $imageOptions);
+
+        $result.=self::tag('a', $linkOptions, $image);
+
+        $result.=self::closeColumn();
+
+        return $result;
+    }
+
 //TODO: alerts
 //TODO: progress bars
 //TODO: media objects

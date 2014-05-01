@@ -792,7 +792,7 @@ class BHtml
 
         if($sizes !== NULL)
         {
-            $render.=self::openColumn($sizes, array('offset' => $offset !== NULL ? $offset : array()));
+            $render.=self::openColumn($sizes, array('offset' => $offset ? : array()));
         }
         $render.= self::tag('input', $htmlOptions);
         if($helpText !== null)
@@ -998,19 +998,19 @@ class BHtml
 
         if($sizes !== null)
         {
-            $render.=self::openColumn($sizes, array('offset' => $offset !== NULL ? $offset : array()));
+            $render.=self::openColumn($sizes, array('offset' => $offset ? : array()));
         }
 
         if($inline !== true)
         {
-            $containerOptions !== null ? $containerOptions : array();
+            $containerOptions = $containerOptions ? : array();
             self::addClass('checkbox', $containerOptions);
             $render .= self::openTag('div', $containerOptions);
         }
         else
         {
 
-            $labelOptions !== null ? $labelOptions : array();
+            $labelOptions = $labelOptions ? : array();
             self::addClass('checkbox-inline', $labelOptions);
         }
 
@@ -1085,13 +1085,13 @@ class BHtml
 
         if($inline !== true)
         {
-            $containerOptions !== null ? $containerOptions : array();
+            $containerOptions = $containerOptions? : array();
             self::addClass('radio', $containerOptions);
             $render = self::openTag('div', $containerOptions);
         }
         else
         {
-            $labelOptions !== null ? $labelOptions : array();
+            $labelOptions = $labelOptions ? : array();
             self::addClass('radio-inline', $labelOptions);
         }
 
@@ -1636,7 +1636,7 @@ class BHtml
         return $result;
     }
 
-//TODO: navs
+//PENDING: navs dropdown
 
     /**
      * Render a navigational menu.
@@ -1660,7 +1660,7 @@ class BHtml
 
         $result = self::openTag('ul', $htmlOptions);
 
-        $link = $links !== NULL && is_array($links) ? $links : array();
+        $link = $links ? : array();
 
         foreach($links as $link)
         {
@@ -1695,7 +1695,55 @@ class BHtml
     }
 
 //TODO: navbar
-//TODO: breadcrumb(check Yii breadcrumb widget)
+
+    /**
+     * Render a breadcrum as navigation menu.
+     * @param array     $links          List of links with these options:<br/>
+     *                                  boolean <b>active</b>: makes the link active;<br/>
+     *                                  string <b>content</b>: content of the link to be displayed;<br/>
+     *                                  array <b>htmlOptions</b>: list of attributes and other options of the item 
+     *                                  container:<br>
+     *                                      see {@link BHtml::tag()};<br/>
+     *                                  array <b>linkOptions</b>: list of attributes and other options of the link:<br/>
+     *                                      see {@link Bhtml::tag()};<br/>
+     *                                  string <b>url</b>: url of the link;<br/>
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  see {@link BHtml::tag()};
+     */
+    public static function breadcrum($links, $htmlOptions = array())
+    {
+        self::addClass('breadcrumb', $htmlOptions);
+
+        $result = self::openTag('ol', $htmlOptions);
+
+        foreach($links as $link)
+        {
+            $content = self::getOption('content', $link);
+
+            $itemOptions = self::getOption('htmlOptions', $link) ? : array();
+            if(self::getOption('active', $link) === true)
+            {
+                self::addClass('active', $itemOptions);
+            }
+
+            $url = self::getOption('url', $link);
+            if($url !== NULL)
+            {
+                $linkOptions = self::getOption('linkOptions', $link) ? : array();
+                $linkOptions['href'] = $url;
+
+                $content = self::tag('a', $linkOptions, $content);
+            }
+
+            $li = self::tag('li', $itemOptions, $content);
+            $result.=$li;
+        }
+
+        $result.=self::closetag('ol');
+
+        return $result;
+    }
+
 //TODO: pagination(check Yii pager widget)
 
     /**

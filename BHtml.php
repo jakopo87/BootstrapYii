@@ -1694,7 +1694,7 @@ class BHtml
         return $result;
     }
 
-//TODO: navbar
+//PENDING: navbar
 
     /**
      * Render a breadcrum as navigation menu.
@@ -1744,7 +1744,7 @@ class BHtml
         return $result;
     }
 
-//TODO: pagination(check Yii pager widget)
+//PENDING: pagination(check Yii pager widget)
 
     /**
      * Render a badge.
@@ -1782,7 +1782,28 @@ class BHtml
         return self::closeTag('div');
     }
 
-//TODO: page header
+    /**
+     * Render a page header.
+     * @param string    $content        Content of the header;
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  array <b>innerOptions</b>: list of attributes and other options for the inner 
+     *                                  h1 tag:<br/>
+     *                                  see {@link BHtml::heading()};
+     * @return string
+     */
+    public static function pageHeader($content, $htmlOptions = array())
+    {
+        self::addClass('page-header', $htmlOptions);
+
+        $innerOptions = self::getOption('innerOptions', $htmlOptions, true)? : array();
+
+        $result = self::openTag('div', $htmlOptions);
+        $result .= self::heading(1, $content, $innerOptions);
+        $result .= self::closeTag('div');
+
+        return $result;
+    }
+
 //TODO: thumbnails
 //TODO: alerts
 //TODO: progress bars

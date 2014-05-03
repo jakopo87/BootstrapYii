@@ -32,6 +32,7 @@
  */
 class Bootstrap extends CApplicationComponent
 {
+
     /**
      * Indicates if the assets are loaded from Bootstrap CDN
      * @var boolean
@@ -89,9 +90,20 @@ class Bootstrap extends CApplicationComponent
             }
         }
 
+        if($this->useCDN)
+        {
+            $this->assets['basePath'] = NULL;
+            $this->assets['baseUrl'] = $assets['baseUrl'];
+        }
+        else
+        {
+            $this->assets['basePath'] = 'application.components.bootstrap.assets';
+            $this->assets['baseUrl'] = null;
+        }
+
         return array(
-            'basePath' => isset($this->assets['basePath']) ? $this->assets['basePath'] : 'application.components.bootstrap.assets',
-            'baseUrl' => isset($this->assets['baseUrl']) ? $this->assets['baseUrl'] : null,
+            'basePath' => $this->assets['basePath'],
+            'baseUrl' => $this->assets['baseUrl'] ? : null,
             'css' => array(
                 $this->assets['css'],
                 $this->assets['theme'],
@@ -112,11 +124,12 @@ class Bootstrap extends CApplicationComponent
             if($this->useCDN)
             {
                 $assets = array(
-                    'css' => "//netdna.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap{$minified}.css",
-                    'theme' => "//netdna.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap-theme{$minified}.css",
+                    'baseUrl' => '/',
+                    'css' => "/netdna.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap{$minified}.css",
+                    'theme' => "/netdna.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap-theme{$minified}.css",
                     'js' => array(
-                        "//ajax.googleapis.com/ajax/libs/jquery/{$this->jqueryVersion}/jquery.min.js",
-                        "//netdna.bootstrapcdn.com/bootstrap/{$this->version}/js/bootstrap{$minified}.js")
+                        "/ajax.googleapis.com/ajax/libs/jquery/{$this->jqueryVersion}/jquery.min.js",
+                        "/netdna.bootstrapcdn.com/bootstrap/{$this->version}/js/bootstrap{$minified}.js")
                 );
             }
             else

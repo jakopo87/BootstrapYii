@@ -1941,20 +1941,24 @@ class BHtml
      * @param string $content       Body content of the dialog;
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              array <b>footerOptions</b>: list of attributes and other options for the optional footer:<br/>
-     *                                  see {@link BHtml::renderModalFooter()};
+     *                                  see {@link BHtml::renderModalFooter()};<br/>
      *                              array <b>headerOptions</b>: list of attributes and other options for the optional header:<br/>
-     *                                  see {@link BHtml::renderModalHeader()};
+     *                                  see {@link BHtml::renderModalHeader()};<br/>
+     *                              string <b>size</b>: size of the dialog, allowed values are: sm, lg;
      * @return string
      */
     public static function modal($content, $htmlOptions = array())
     {
         self::addClass('modal fade', $htmlOptions);
 
+        $size = self::getOption('size', $htmlOptions, true);
+        $dialogSize = $size !== NULL ? " modal-$size" : '';
+
         $header = self::renderModalHeader(self::getOption('headerOptions', $htmlOptions, true));
         $footer = self::renderModalFooter(self::getOption('footerOptions', $htmlOptions, true));
 
         $result = self::openTag('div', $htmlOptions);
-        $result .= self::openTag('div', array('class' => 'modal-dialog'));
+        $result .= self::openTag('div', array('class' => "modal-dialog$dialogSize"));
         $result .= self::openTag('div', array('class' => 'modal-content'));
 
         $result.=$header . self::tag('div', array('class' => 'modal-body'), $content) . $footer;

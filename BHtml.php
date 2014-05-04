@@ -1849,10 +1849,10 @@ class BHtml
         return $result;
     }
 
-//TODO: alerts
-//TODO: progress bars
-//TODO: media objects
-//TODO: list groups
+//PENDING: alerts
+//PENDING: progress bars
+//PENDING: media objects
+//PENDING: list groups
 
     /**
      * Open a panel.
@@ -1934,6 +1934,85 @@ class BHtml
         {
             self::addClass("nav-$navStyle", $htmlOptions);
         }
+    }
+
+    /**
+     * Render a modal dialog.
+     * @param string $content       Body content of the dialog;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              array <b>footerOptions</b>: list of attributes and other options for the optional footer:<br/>
+     *                                  see {@link BHtml::renderModalFooter()};
+     *                              array <b>headerOptions</b>: list of attributes and other options for the optional header:<br/>
+     *                                  see {@link BHtml::renderModalHeader()};
+     * @return string
+     */
+    public static function modal($content, $htmlOptions = array())
+    {
+        self::addClass('modal fade', $htmlOptions);
+
+        $header = self::renderModalHeader(self::getOption('headerOptions', $htmlOptions, true));
+        $footer = self::renderModalFooter(self::getOption('footerOptions', $htmlOptions, true));
+
+        $result = self::openTag('div', $htmlOptions);
+        $result .= self::openTag('div', array('class' => 'modal-dialog'));
+        $result .= self::openTag('div', array('class' => 'modal-content'));
+
+        $result.=$header . self::tag('div', array('class' => 'modal-body'), $content) . $footer;
+
+        $result.=self::closeTag('div');
+        $result.=self::closeTag('div');
+        $result.=self::closeTag('div');
+
+        return $result;
+    }
+
+    /**
+     * Render the header for a modal dialog.
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+      array <b>footerOptions</b>:   list of attributes and other options for the optional footer:<br/>
+     *                              string <b>title</b>: title of the header;<br/>
+     *                              boolean <b>closeButton</b>; show the close button for the dialog;
+     * * @return string
+     */
+    private static function renderModalHeader($htmlOptions)
+    {
+        $result = '';
+        if(is_array($htmlOptions))
+        {
+            $result.=self::openTag('div', array('class' => 'modal-header'));
+
+            if(self::getOption('closeButton', $htmlOptions, true) === true)
+            {
+                $result.=self::tag('button', array('type' => 'button', 'class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true'), '&times;');
+            }
+
+            $headerTitle = self::getOption('title', $htmlOptions, true);
+            $result.=self::heading(4, $headerTitle, array('class' => 'modal-title'));
+
+            $result.=self::closeTag('div');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Render the footer for a modal dialog.
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              string <b>content</b>: content of the footer;
+     * @return string
+     */
+    private static function renderModalFooter($htmlOptions)
+    {
+        $result = '';
+        if(is_array($htmlOptions))
+        {
+            self::addClass('modal-footer', $htmlOptions);
+
+            $content = self::getOption('content', $htmlOptions, true);
+            $result.=self::tag('div', $htmlOptions, $content);
+        }
+
+        return $result;
     }
 
 //TODO: modals

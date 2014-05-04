@@ -2019,13 +2019,110 @@ class BHtml
         return $result;
     }
 
-//TODO: scrollspy
-//TODO: tabs
-//TODO: tooltips
-//TODO: popovers
-//TODO: alerts
-//TODO: buttons (javascript)
-//TODO: collapse (javascript)
-//TODO: carousel (javascript)
+//PENDING: scrollspy
+//PENDING: tabs
+//PENDING: tooltips
+//PENDING: popovers
+//PENDING: alerts
+//PENDING: buttons (javascript)
+//PENDING: collapse (javascript)
+
+    /**
+     * Render an  image carousel.
+     * @param string $id            Id of the carousel;
+     * @param array $items          List of items in this format:<br/>
+     *                              boolean <b>active</b>: make the item active;<br/>
+     *                              string <b>caption<b>: optional caption for the item;<br/>
+     *                              array <b>htmlOptions</b>: list of attributes and other options:<br/>
+     *                                  see {@link BHtml::image()};<br/>
+     *                              string <b>src</b>: src of the image.<br/>
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              boolean <b>autoStart</b>: start the animation at page load;<br/>
+     *                              integer <b>interval</b>: interval of delay between automatically cycling an item in 
+     *                              ms (default: 5000ms);<br/>
+     *                              boolean <b>hoverPause<b>: pause the items on mouse over and resume on mouse out;<br/>
+     *                              boolean <b>wrap</b>: loops the items continuosly.
+     * @return type
+     */
+    public static function carousel($id, $items, $htmlOptions = array())
+    {
+        self::addClass('carousel slide', $htmlOptions);
+        $htmlOptions['id'] = $id;
+        if(self::getOption('autoStart', $htmlOptions, true))
+        {
+            $htmlOptions['data-ride'] = 'carousel';
+        }
+        $htmlOptions['data-interval'] = self::getOption('interval', $htmlOptions, true);
+        $htmlOptions['data-pause'] = self::getOption('hoverPause', $htmlOptions, true) ? 'hover' : null;
+        $htmlOptions['data-wrap'] = self::getOption('wrap', $htmlOptions, true) ? 'true' : null;
+
+        $flagIndicators = self::getOption('indicators', $htmlOptions, true);
+
+        $flagControls = self::getOption('controls', $htmlOptions, true);
+
+        $indicators = $carouselContent = $result = '';
+
+        $i = 0;
+
+        $result.=self::openTag('div', $htmlOptions);
+
+        /* Items */
+        foreach($items as $item)
+        {
+            if($flagIndicators)
+            {
+                $indicatorOptions = array('data-target' => "#$id", 'data-slide-to' => $i);
+
+                self::addClass(array('active' => self::getOption('active', $item)), $indicatorOptions);
+
+                $indicators.=self::tag('li', $indicatorOptions, '');
+
+                ++$i;
+            }
+
+            $caption = self::getOption('caption', $item, true);
+
+            $itemOptions = self::getOption('htmlOptions', $htmlOptions, true)? : array();
+            self::addClass(array(
+                'item' => true,
+                'active' => self::getOption('active', $item)
+                    ), $itemOptions);
+
+            $carouselContent.=self::openTag('div', $itemOptions? : $itemOptions);
+
+            $carouselContent .= self::image($item['src'], self::getOption('htmlOptions', $item)? : array());
+
+            if($caption !== NULL)
+            {
+                $carouselContent.=self::tag('div', array('class' => 'carousel-caption'), $caption);
+            }
+
+            $carouselContent.=self::closeTag('div');
+        }
+
+        if($flagIndicators)
+        {
+            $result.=self::openTag('ol', array('class' => 'carousel-indicators'));
+            $result.=$indicators;
+            $result.=self::closeTag('ol');
+        }
+
+        $result.=self::openTag('div', array('class' => 'carousel-inner'));
+
+        $result.=$carouselContent;
+
+        $result.=self::closeTag('div');
+
+        if($flagControls)
+        {
+            $result.=self::tag('a', array('class' => 'left carousel-control', 'href' => "#$id", 'data-slide' => 'prev'), self::tag('span', array('class' => 'glyphicon glyphicon-chevron-left'), ''));
+            $result.=self::tag('a', array('class' => 'right carousel-control', 'href' => "#$id", 'data-slide' => 'next'), self::tag('span', array('class' => 'glyphicon glyphicon-chevron-right'), ''));
+        }
+
+        $result.=self::closeTag('div');
+
+        return $result;
+    }
+
 //TODO: affix;
 }

@@ -268,9 +268,9 @@ class BHtml
      *                              string <b>textTransform</b>: change the capitalization of the text, allowed values 
      *                              are: lowercase, uppercase, capitalize;<br/>
      *                              boolean <b>textHide</b>: hides the text for image replacement;<br/>
-     *                              mixed <b>visible</b>: it can be an array with the sizes in which the element is 
-     *                              forced to show (xs, sm, md, lg, print) a boolean that determines if the element is 
-     *                              shown;<br/>
+     *                              mixed <b>visible</b>: it can be an associative array with the sizes in which the element is 
+     *                              forced to show as key (xs, sm, md, lg, print) and the display type as value (block, 
+     *                              inline, inline-block) as value, or a boolean that determines if the element is shown;<br/>
      * @param string $content   It can be false if the tag does not have content;
      * @param boolean $closeTag Indicates if the tag has to be closed;
      * @return string
@@ -1228,6 +1228,7 @@ class BHtml
      *                              boolean <b>active</b>: see {@link BHtml::button()};<br/>
      *                              string <b>buttonState</b>: see {@link BHtml::button()};<br/>
      *                              string <b>buttonSize</b>: see {#link BHtml::button()};<br/>
+     *                              boolean <b>disabled</b>: disable a link;<br/>
      *                              see {@link BHtml::tag()};
      * @return string
      */
@@ -1345,9 +1346,21 @@ class BHtml
                 if(is_array($visibility))
                 {
                     $columnSizes = array('xs', 'sm', 'md', 'lg', 'print');
-                    foreach($visibility as $size)
+                    $displayTipes = array('block', 'inline', 'inline-block');
+                    switch($state)
                     {
-                        self::addClass(array("$state-$size" => in_array($size, $columnSizes)), $htmlOptions);
+                        case 'hidden':
+                            foreach($visibility as $size)
+                            {
+                                self::addClass(array("$state-$size" => in_array($size, $columnSizes)), $htmlOptions);
+                            }
+                            break;
+                        case 'visible':
+                            foreach($visibility as $size => $display)
+                            {
+                                self::addClass(array("$state-$size-$display" => in_array($size, $columnSizes) && in_array($display, $displayTipes)), $htmlOptions);
+                            }
+                            break;
                     }
                 }
                 else
@@ -2208,4 +2221,8 @@ class BHtml
         return self::tag('samp', $htmlOptions, $text);
     }
 
+    //TODO: Forms / Validation states / .has-feedback
+    //TODO: Forms / Control Sizing / Horizontal form group sizes
+    //TODO: Forms / Control Sizing / Column sizing
+    //TODO: sr-only + sr-only-focusable
 }

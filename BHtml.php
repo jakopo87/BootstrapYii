@@ -265,6 +265,8 @@ class BHtml
      *                              right, justify;<br/>
      *                              string <b>textState</b>: contextual color of the text, allowed values are: muted, 
      *                              primary, success, info, warning, danger;<br/>
+     *                              string <b>textTransform</b>: change the capitalization of the text, allowed values 
+     *                              are: lowercase, uppercase, capitalize;<br/>
      *                              boolean <b>textHide</b>: hides the text for image replacement;<br/>
      *                              mixed <b>visible</b>: it can be an array with the sizes in which the element is 
      *                              forced to show (xs, sm, md, lg, print) a boolean that determines if the element is 
@@ -278,6 +280,8 @@ class BHtml
         self::setVisibility($htmlOptions);
 
         self::setTextAlignment($htmlOptions);
+
+        self::setTextTransform($htmlOptions);
 
         self::setQuickPull($htmlOptions);
 
@@ -1439,12 +1443,21 @@ class BHtml
      * Set the text alignment,
      * @param array $htmlOptions List of attributes;
      */
-    public static function setTextAlignment(&$htmlOptions)
+    private static function setTextAlignment(&$htmlOptions)
     {
         $alignment = self::getOption('textAlignment', $htmlOptions, true);
         if(in_array($alignment, array('left', 'center', 'right', 'justify')))
         {
             self::addClass("text-$alignment", $htmlOptions);
+        }
+    }
+
+    private static function setTextTransform(&$htmlOptions)
+    {
+        $transform = self::getOption('textTransform', $htmlOptions, true);
+        if(in_array($transform, array('lowercase', 'uppercase', 'capitalize')))
+        {
+            self::addClass("text-$transform", $htmlOptions);
         }
     }
 

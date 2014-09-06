@@ -125,11 +125,11 @@ class Bootstrap extends CApplicationComponent
             {
                 $assets = array(
                     'baseUrl' => '/',
-                    'css' => "/netdna.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap{$minified}.css",
-                    'theme' => "/netdna.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap-theme{$minified}.css",
+                    'css' => "/maxcdn.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap{$minified}.css",
+                    'theme' => "/maxcdn.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap-theme{$minified}.css",
                     'js' => array(
                         "/ajax.googleapis.com/ajax/libs/jquery/{$this->jqueryVersion}/jquery.min.js",
-                        "/netdna.bootstrapcdn.com/bootstrap/{$this->version}/js/bootstrap{$minified}.js")
+                        "/maxcdn.bootstrapcdn.com/bootstrap/{$this->version}/js/bootstrap{$minified}.js")
                 );
             }
             else

@@ -171,6 +171,9 @@ class Bootstrap extends CApplicationComponent
 
         /* Fix rendering and touch zoom on mobile devices */
         Yii::app()->clientScript->registerMetaTag('width=device-width, initial-scale=1' . ($this->disableZoom === true ? ' , maximum-scale=1, user-scalable=no' : ''), null, 'viewport');
+
+        /* Fix for Firefox when a fieldset is ued inside a responsive table */
+        Yii::app()->clientScript->registerCss('firefox-fiedlset-responsive-table', '@-moz-document url-prefix(){fieldset { display: table-cell; }}');
     }
 
 }

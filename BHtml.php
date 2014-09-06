@@ -603,7 +603,8 @@ class BHtml
     /**
      * Render the term of a description list.
      * @param string $content Name of the term;
-     * @param array $htmlOptions List of attributes;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function term($content, $htmlOptions = array())
@@ -614,7 +615,8 @@ class BHtml
     /**
      * Render the desscription of a term in a description list.
      * @param string $content Description of the term;
-     * @param array $htmlOptions List of attributes;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function description($content, $htmlOptions = array())
@@ -624,8 +626,9 @@ class BHtml
 
     /**
      * Render an inline snippet of code, special chars in content will be converted in HTML entities.
-     * @param type $content Content of the snippet;
-     * @param type $htmlOptions List of attributes;
+     * @param string $content Content of the snippet;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function code($content, $htmlOptions = array())
@@ -636,7 +639,8 @@ class BHtml
     /**
      * Render an input that is typically entered by keyboard.
      * @param string $content Input to be rendered;
-     * @param string $htmlOptions List of attributes;
+     * @param array $htmlOptions   List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function kbd($content, $htmlOptions = array())
@@ -647,7 +651,8 @@ class BHtml
     /**
      * Render a multiline snippet of code.
      * @param string $content Code to be rendered;
-     * @param array $htmlOptions List of attributes;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function pre($content, $htmlOptions = array())
@@ -663,7 +668,8 @@ class BHtml
      *                              array <b>header</b>: List of header of the columns;
      *                              boolean <b>hover</b>: enable the hover effec on the rows of the table;
      *                              boolean <b>responsive</b>: make the table responsive;
-     *                              boolean <b>striped</b>: enable the striped style for the rows;
+     *                              boolean <b>striped</b>: enable the striped style for the rows;<br/>
+     *                              see {@link BHtml::tag()}
      * @return string
      */
     public static function openTable($htmlOptions = array())
@@ -693,16 +699,14 @@ class BHtml
 
         if($header !== null)
         {
-            $render.=self::openTag('thead');
-            $render.=self::openTableRow();
+            $render.=self::openTag('thead') . self::openTableRow();
 
             foreach($header as $h)
             {
                 $render.=self::tag('th', array(), $h);
             }
 
-            $render.=self::closeTableRow();
-            $render.=self::closeTag('thead');
+            $render.=self::closeTableRow() . self::closeTag('thead');
         }
 
         $render.=self::openTag('tbody');
@@ -719,7 +723,7 @@ class BHtml
     {
         $render = self::closeTag('tbody');
 
-        $render.=self::closeTag('table');
+        $render.= self::closeTag('table');
 
         if($responsive === true)
         {
@@ -733,7 +737,8 @@ class BHtml
      * Open a table row.
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              string <b>state</b>: set the contextual state of the row, allowed values are: active,
-     *                              success, info, warning, danger;
+     *                              success, info, warning, danger;<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function openTableRow($htmlOptions = array())
@@ -744,6 +749,10 @@ class BHtml
         return self::openTag('tr', $htmlOptions);
     }
 
+    /**
+     * Close a table row.
+     * @return string
+     */
     public static function closeTableRow()
     {
         return self::closeTag('tr');
@@ -754,7 +763,8 @@ class BHtml
      * @param string $content Content of the cell;
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              string <b>state</b>: set the contextual state of the cell, allowed values are: 
-     *                              active, success, info, warning, danger;
+     *                              active, success, info, warning, danger;<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function tableCell($content, $htmlOptions = array())
@@ -820,7 +830,7 @@ class BHtml
      * @param string $value Text area value;
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              array <b>sizes</b>: mixed array containing the sizes for different devices: the keys
-     *                               are the column type and the value is the size;
+     *                               are the column type and the value is the size;<br/>
      *                              see {@link BHtml::tag()};
      * @return string
      */
@@ -900,7 +910,8 @@ class BHtml
      * Render an option tag.
      * @param array $data Array in which the keys are the option's value and the values are the option's label;
      * @param array $select Default selection of values;
-     * @param array $htmlOptions List of attributes;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function options($data, $select = array())
@@ -1266,7 +1277,7 @@ class BHtml
      * Apply the css style class.
      * @param type $prefix Prefix of the css class;
      * @param string $name Name of the option;
-     * @param array $htmlOptions List of attributes;
+     * @param array $htmlOptions    List of attributes;
      */
     private static function setStateStyle($prefix, $name, &$htmlOptions)
     {
@@ -1353,8 +1364,9 @@ class BHtml
 
     /**
      * Render a close button to dismiss content.
-     * @param type $htmlOptions
-     * @return type
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
+     * @return string 
      */
     public static function closeButton($htmlOptions = array())
     {
@@ -1367,9 +1379,10 @@ class BHtml
     }
 
     /**
-     * 
-     * @param type $htmlOptions
-     * @return type
+     * Render the icon from the dropdown menu.
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
+     * @return string
      */
     public static function caret($htmlOptions = array())
     {
@@ -1380,7 +1393,7 @@ class BHtml
 
     /**
      * Render a glyphicon
-     * @param string $values    Name of the icon (see {@link http://getbootstrap.com/components/#glyphicons-glyphs} for 
+     * @param string $value     Name of the icon (see {@link http://getbootstrap.com/components/#glyphicons-glyphs} for 
      *                          the full list;
      * @return string
      */
@@ -1389,11 +1402,14 @@ class BHtml
         return self::tag('span', array('class' => "glyphicon glyphicon-$value"), '');
     }
 
+    //TODO: add htmlOptions to glyph()?
+
     /**
      * Open a button group.
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              string <b>buttonSize</b>: size of the button, allowed values are: lg, sm, xs;<br/>
-     *                              boolean <b>vertical</b>: make the buttons appears stacked;
+     *                              boolean <b>vertical</b>: make the buttons appears stacked;<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function openButtonGroup($htmlOptions = array())
@@ -1421,7 +1437,8 @@ class BHtml
 
     /**
      * Open a button toolbar.
-     * @param array $htmlOptions    List of attributes;
+     * @param array $htmlOptions    List of attributes and other option:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function openButtonToolbar($htmlOptions = array())
@@ -1455,6 +1472,10 @@ class BHtml
         }
     }
 
+    /**
+     * Set the text capitalization.
+     * @param array $htmlOptions    List of attributes;
+     */
     private static function setTextTransform(&$htmlOptions)
     {
         $transform = self::getOption('textTransform', $htmlOptions, true);
@@ -1512,7 +1533,7 @@ class BHtml
      * @param mixed     $select         Selected value by default;
      * @param array     $data           Mixed array of data to populate the checkboes (label => value);
      * @param array     $htmlOptions    List of attributes and other options:<br/>
-     *                                      see {@link BHtml::checkbox()};
+     *                                  see {@link BHtml::checkbox()};
      * @return string
      */
     public static function radioButtonList($name, $select, $data, $htmlOptions = array())
@@ -1553,15 +1574,16 @@ class BHtml
      * @param string $name          Name attribute of the input tag.
      * @param mixed $value          Value of the input tag.
      * @param array $htmlOptions    List of attributes and other options:<br/>
-     *                              array <b>append</b>: list of attributes and other options:
+     *                              array <b>append</b>: list of attributes and other options:<br/>
      *                                  string <b>text</b>: content of the add-on (used only with "text" type);
      *                                  string <b>type</b>: type of add-on, allowed values are: text, radio, checkbox, 
      *                                  button;
      *                              array <b>inputOptions</b>: list of attributes and other options of the input tag, 
      *                              see {@link BHtml::input()};
      *                              string <b>inputSize</b>: make the input tag taller or smaller, allowed values are: 
-     *                              lg, sm;
-     *                              array <b>prepend</b>: see <b>append</b> option;
+     *                              lg, sm;<br/>
+     *                              array <b>prepend</b>: see <b>append</b> option;<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function inputGroup($name, $value, $htmlOptions)
@@ -1601,13 +1623,14 @@ class BHtml
      * Render an input group add-on.
      * @param mixed $htmlOptions        Content of the addon or List of attributes and other options:
      *                                  string <b>innerOptions</b>: list of attributes and other options of the inner 
-     *                                  tag:
+     *                                  tag:<br/>
      *                                      string <b>content</b>: content of the inner tag (used only with "button" 
      *                                      type);<br/>
      *                                      see {@link BHtml::button()};
      *                                  string <b>text</b>: content of the add-on (used only with "text" type);
      *                                  string <b>type</b>: type of add-on, allowed values are: checkbox, text, radio (
-     *                                  default is "text");
+     *                                  default is "text");<br/>
+     *                                  see {@link BHtml::tag()};
      * @return string
      */
     private static function inputGroupAddOn($htmlOptions = array())
@@ -1664,7 +1687,8 @@ class BHtml
      *                              array <b>linkOptions</b>: list of attributes and other options or the link:<br/>
      *                                  see {@link BHtml::link()};<br/>
      *                              string <b>url</b>: url of the link;<br/>
-     * @param array $htmlOptions    List of attributes and other options;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function nav($links, $htmlOptions = array())
@@ -1765,7 +1789,7 @@ class BHtml
     /**
      * Render a badge.
      * @param string    $content       Content of the badge.
-     * @param array     $htmlOptions    List of attributes and other options:
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
      *                                  see {@link BHtml::tag()};
      * @return string
      */
@@ -1804,7 +1828,8 @@ class BHtml
      * @param array     $htmlOptions    List of attributes and other options:<br/>
      *                                  array <b>innerOptions</b>: list of attributes and other options for the inner 
      *                                  h1 tag:<br/>
-     *                                  see {@link BHtml::heading()};
+     *                                  see {@link BHtml::heading()};<br/>
+     *                                  see {@link BHtml::tag()};
      * @return string
      */
     public static function pageHeader($content, $htmlOptions = array())
@@ -1834,7 +1859,8 @@ class BHtml
      *                                      see {@link BHtml::image()};
      *                                  array <b>linkOptions</b>: list of attributes and other options: for the link 
      *                                  wrapping the image:<br/>
-     *                                      see {@link BHtml::tag()};
+     *                                      see {@link BHtml::tag()};<br/>
+     *                                  see {@link BHtml::tag()};
      * @return string
      */
     public static function thumbnail($src, $sizes, $htmlOptions = array())
@@ -1928,7 +1954,8 @@ class BHtml
     /**
      * Render a textual label(span).
      * @param string    $content        Content of the label
-     * @param array     $htmlOptions    List of attributes and other options;
+     * @param array     $htmlOptions    List of attributes and other options:<br/>
+     *                                  see {@link BHtml::tag()};
      * @return string
      */
     public static function label($content, $htmlOptions)
@@ -1960,7 +1987,8 @@ class BHtml
      *                                  see {@link BHtml::renderModalFooter()};<br/>
      *                              array <b>headerOptions</b>: list of attributes and other options for the optional header:<br/>
      *                                  see {@link BHtml::renderModalHeader()};<br/>
-     *                              string <b>size</b>: size of the dialog, allowed values are: sm, lg;
+     *                              string <b>size</b>: size of the dialog, allowed values are: sm, lg;<br/>
+     *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function modal($content, $htmlOptions = array())
@@ -1989,9 +2017,11 @@ class BHtml
     /**
      * Render the header for a modal dialog.
      * @param array $htmlOptions    List of attributes and other options:<br/>
-      array <b>footerOptions</b>:   list of attributes and other options for the optional footer:<br/>
+     *                              array <b>footerOptions</b>:   list of attributes and other options for the optional
+     *                                  footer:<br/>
      *                              string <b>title</b>: title of the header;<br/>
-     *                              boolean <b>closeButton</b>; show the close button for the dialog;
+     *                              boolean <b>closeButton</b>; show the close button for the dialog;<br/>
+     *                              see {@link BHtml::tag()}
      * * @return string
      */
     private static function renderModalHeader($htmlOptions)
@@ -2018,7 +2048,8 @@ class BHtml
     /**
      * Render the footer for a modal dialog.
      * @param array $htmlOptions    List of attributes and other options:<br/>
-     *                              string <b>content</b>: content of the footer;
+     *                              string <b>content</b>: content of the footer;<br/>
+     *                              see {@link BHtml::tag()}
      * @return string
      */
     private static function renderModalFooter($htmlOptions)
@@ -2057,8 +2088,9 @@ class BHtml
      *                              integer <b>interval</b>: interval of delay between automatically cycling an item in 
      *                              ms (default: 5000ms);<br/>
      *                              boolean <b>hoverPause<b>: pause the items on mouse over and resume on mouse out;<br/>
-     *                              boolean <b>wrap</b>: loops the items continuosly.
-     * @return type
+     *                              boolean <b>wrap</b>: loops the items continuosly;<br/>
+     *                              see {@link BHtml::tag()}
+     * @return string
      */
     public static function carousel($id, $items, $htmlOptions = array())
     {
@@ -2146,7 +2178,8 @@ class BHtml
     /**
      * Render a run of highlighed text.
      * @param string $text
-     * @param array $htmlOptions
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()}
      * @return string
      */
     public static function mark($text, $htmlOptions = array())
@@ -2162,4 +2195,17 @@ class BHtml
     //PENDING: string
     //PENDING: em
     //PENDING: var(problems because is a php4 reserved word)
+
+    /**
+     * Render a block sample output from a program.
+     * @param string $text
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()}
+     * @return string
+     */
+    public static function samp($text, $htmlOptions = array())
+    {
+        return self::tag('samp', $htmlOptions, $text);
+    }
+
 }

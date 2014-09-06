@@ -1596,8 +1596,8 @@ class BHtml
      */
     private static function inputGroupAddOn($htmlOptions = array())
     {
-//PENDING: button with dropdown
-//PENDING: segmented buttons
+//TODO: button with dropdown
+//TODO: segmented buttons
         self::addClass('input-group-addon', $htmlOptions);
 
         $innerOptions = self::getOption('innerOptions', $htmlOptions, true);
@@ -1636,7 +1636,7 @@ class BHtml
         return $result;
     }
 
-//PENDING: navs dropdown
+//TODO: navs dropdown
 
     /**
      * Render a navigational menu.
@@ -1694,7 +1694,7 @@ class BHtml
         return $result;
     }
 
-//PENDING: navbar
+//TODO: navbar
 
     /**
      * Render a breadcrum as navigation menu.
@@ -1744,7 +1744,7 @@ class BHtml
         return $result;
     }
 
-//PENDING: pagination(check Yii pager widget)
+//TODO: pagination(check Yii pager widget)
 
     /**
      * Render a badge.
@@ -1849,10 +1849,10 @@ class BHtml
         return $result;
     }
 
-//PENDING: alerts
-//PENDING: progress bars
-//PENDING: media objects
-//PENDING: list groups
+//TODO: alerts
+//TODO: progress bars
+//TODO: media objects
+//TODO: list groups
 
     /**
      * Open a panel.
@@ -2019,13 +2019,13 @@ class BHtml
         return $result;
     }
 
-//PENDING: scrollspy
-//PENDING: tabs
-//PENDING: tooltips
-//PENDING: popovers
-//PENDING: alerts
-//PENDING: buttons (javascript)
-//PENDING: collapse (javascript)
+//TODO: scrollspy
+//TODO: tabs
+//TODO: tooltips
+//TODO: popovers
+//TODO: alerts
+//TODO: buttons (javascript)
+//TODO: collapse (javascript)
 
     /**
      * Render an  image carousel.

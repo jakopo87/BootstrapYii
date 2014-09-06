@@ -43,7 +43,7 @@ class Bootstrap extends CApplicationComponent
      * Bootstrap framework version
      * @var type 
      */
-    public $version = '3.1.0';
+    public $version = '3.2.0';
 
     /**
      * Respond.js version
@@ -154,7 +154,7 @@ class Bootstrap extends CApplicationComponent
             //TODO: CDN/X-Domain Setup for respond.js
             $respondJS = $this->useCDN === true ? "https://oss.maxcdn.com/libs/respond.js/{$this->respondJsVersion}/respond.min.js" : 'js/respond.min.js';
             $assets['js'][] = $respondJS;
-            //PENDING: disabled attribute doesnt work on IE<8 and the plugin doesnt work when you set it true;
+            //TODO: disabled attribute doesnt work on IE<8 and the plugin doesnt work when you set it true;
         }
 
         Yii::app()->clientScript->addPackage('bootstrap', $assets)->registerPackage('bootstrap');

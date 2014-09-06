@@ -447,10 +447,7 @@ class BHtml
     {
         $htmlOptions['title'] = $title;
 
-        if(self::getOption('initialism', $htmlOptions, true) === true)
-        {
-            self::addClass('initialism', $htmlOptions);
-        }
+        self::addClass(array('initialism' => self::getOption('initialism', $htmlOptions, true)), $htmlOptions);
 
         return self::tag('abbr', $htmlOptions, $content);
     }
@@ -2164,4 +2161,5 @@ class BHtml
     //PENDING: small
     //PENDING: string
     //PENDING: em
+    //PENDING: var(problems because is a php4 reserved word)
 }

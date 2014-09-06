@@ -506,7 +506,7 @@ class BHtml
      */
     public static function blockquote($content, $htmlOptions = array())
     {
-        $footer = self::getOption('footer', $htmlOptions);
+        $footer = self::getOption('footer', $htmlOptions, true);
 
         self::addClass(array('blockquote-reverse' => self::getOption('reverse', $htmlOptions, true)), $htmlOptions);
 

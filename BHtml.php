@@ -439,12 +439,18 @@ class BHtml
      * @param string $content content of the tag;
      * @param string $title title shown on mouse hover;
      * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              boolean <b>initialism</b>: use a slightly smaller font-size;<br/>
      *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function abbreviation($content, $title, $htmlOptions = array())
     {
         $htmlOptions['title'] = $title;
+
+        if(self::getOption('initialism', $htmlOptions, true) === true)
+        {
+            self::addClass('initialism', $htmlOptions);
+        }
 
         return self::tag('abbr', $htmlOptions, $content);
     }

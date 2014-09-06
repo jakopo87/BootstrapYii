@@ -2125,4 +2125,24 @@ class BHtml
     }
 
 //TODO: affix;
+//PENDING: p.lead
+
+    /**
+     * Render a run of highlighed text.
+     * @param string $text
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function mark($text, $htmlOptions = array())
+    {
+        return self::tag('mark', $htmlOptions, $text);
+    }
+
+    //PENDING: del
+    //PENDING: s
+    //PENDING: ins
+    //PENDING: u
+    //PENDING: small
+    //PENDING: string
+    //PENDING: em
 }

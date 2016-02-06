@@ -82,21 +82,16 @@ class Bootstrap extends CApplicationComponent
      */
     private function makePackage($assets)
     {
-        foreach(array('css', 'theme', 'js') as $asset)
-        {
-            if(!isset($this->assets[$asset]))
-            {
+        foreach(array('css', 'theme', 'js') as $asset) {
+            if(!isset($this->assets[$asset])) {
                 $this->assets[$asset] = $assets[$asset];
             }
         }
 
-        if($this->useCDN)
-        {
+        if($this->useCDN) {
             $this->assets['basePath'] = NULL;
             $this->assets['baseUrl'] = $assets['baseUrl'];
-        }
-        else
-        {
+        } else {
             $this->assets['basePath'] = 'application.components.bootstrap.assets';
             $this->assets['baseUrl'] = null;
         }
@@ -119,10 +114,8 @@ class Bootstrap extends CApplicationComponent
     {
         $minified = YII_DEBUG === false ? '.min' : '';
 
-        if($this->assets === null)
-        {
-            if($this->useCDN)
-            {
+        if($this->assets === null) {
+            if($this->useCDN) {
                 $assets = array(
                     'baseUrl' => '/',
                     'css' => "/maxcdn.bootstrapcdn.com/bootstrap/{$this->version}/css/bootstrap{$minified}.css",
@@ -131,9 +124,7 @@ class Bootstrap extends CApplicationComponent
                         "/ajax.googleapis.com/ajax/libs/jquery/{$this->jqueryVersion}/jquery.min.js",
                         "/maxcdn.bootstrapcdn.com/bootstrap/{$this->version}/js/bootstrap{$minified}.js")
                 );
-            }
-            else
-            {
+            } else {
                 $assets = array(
                     'css' => "css/bootstrap{$minified}.css",
                     'theme' => "css/bootstrap-theme{$minified}.css",
@@ -142,15 +133,12 @@ class Bootstrap extends CApplicationComponent
                         "js/bootstrap{$minified}.js"),
                 );
             }
-        }
-        else
-        {
+        } else {
             $assets = $this->assets;
         }
         $assets = $this->makePackage($assets);
 
-        if(preg_match('/MSIE [1-8]\./', Yii::app()->request->userAgent) === 1)
-        {
+        if(preg_match('/MSIE [1-8]\./', Yii::app()->request->userAgent) === 1) {
             //TODO: CDN/X-Domain Setup for respond.js
             $respondJS = $this->useCDN === true ? "https://oss.maxcdn.com/libs/respond.js/{$this->respondJsVersion}/respond.min.js" : 'js/respond.min.js';
             $assets['js'][] = $respondJS;

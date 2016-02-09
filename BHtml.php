@@ -802,7 +802,7 @@ class BHtml
         }
         $render.= self::tag('input', $htmlOptions);
         if($helpText !== null) {
-            $render.=self::tag('span', array('class' => 'help-block'), $helpText);
+            $render.=self::tag('p', array('class' => 'help-block'), $helpText);
         }
         if($sizes !== NULL) {
             $render.=self::closeColumn();
@@ -1908,10 +1908,9 @@ class BHtml
      */
     public static function label($content, $htmlOptions)
     {
-        self::addClass('label', $htmlOptions);
         self::setStateStyle('label', 'labelState', $htmlOptions);
 
-        return self::tag('span', $htmlOptions, $content);
+        return self::tag('label', $htmlOptions, $content);
     }
 
     /**

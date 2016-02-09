@@ -625,6 +625,26 @@ class BHtml
     }
 
     /**
+     * Open a kbd tag.
+     * @param array $htmlOptions   List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()};
+     * @return string
+     */
+    public static function openKbd($htmlOptions = array())
+    {
+        return self::openTag("kbd", $htmlOptions);
+    }
+
+    /**
+     * Close a kbd tag.
+     * @return string
+     */
+    public static function closeKbd()
+    {
+        return self::closeTag("kbd");
+    }
+
+    /**
      * Render a multiline snippet of code.
      * @param string $content Code to be rendered;
      * @param array $htmlOptions    List of attributes and other options:<br/>

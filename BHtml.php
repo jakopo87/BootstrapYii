@@ -2154,6 +2154,18 @@ class BHtml
         }
     }
 
+    /**
+     * Render a var tag.
+     * @param string $content
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()}
+     * @return string
+     */
+    public static function variable($content, $htmlOptions = array())
+    {
+        return self::tag("var", $htmlOptions, $content);
+    }
+
     //TODO: Forms / Validation states / .has-feedback
     //TODO: Forms / Control Sizing / Horizontal form group sizes
     //TODO: Forms / Control Sizing / Column sizing

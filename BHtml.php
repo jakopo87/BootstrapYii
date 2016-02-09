@@ -670,6 +670,8 @@ class BHtml
      */
     public static function openTable($htmlOptions = array())
     {
+        Yii::app()->clientScript->registerCss("firefox-responsive-table-hack", "@-moz-document url-prefix() {fieldset { display: table-cell; }}");
+
         $header = self::getOption('header', $htmlOptions, true);
 
         self::addClass('table', $htmlOptions);

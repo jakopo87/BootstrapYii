@@ -1275,8 +1275,7 @@ class BHtml
                 break;
         }
 
-        $name = self::getOption($name, $htmlOptions, true);
-        if(in_array($name, $allowedValues)) {
+        if(in_array(self::getOption($name, $htmlOptions, true), $allowedValues)) {
             if($prefix !== '') {
                 $prefix.='-';
             }

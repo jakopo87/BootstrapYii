@@ -41,17 +41,13 @@ class BHtml
      */
     private static function getOption($option, &$htmlOptions, $unset = false)
     {
-        if(isset($htmlOptions[$option]))
-        {
+        if(isset($htmlOptions[$option])) {
             $value = $htmlOptions[$option];
 
-            if($unset)
-            {
+            if($unset) {
                 unset($htmlOptions[$option]);
             }
-        }
-        else
-        {
+        } else {
             $value = null;
         }
         return $value;
@@ -67,15 +63,12 @@ class BHtml
      */
     private static function addClass($class, &$htmlOptions)
     {
-        if(is_string($class))
-        {
+        if(is_string($class)) {
             $class = array($class => true);
         }
 
-        foreach($class as $c => $exp)
-        {
-            if($exp === true)
-            {
+        foreach($class as $c => $exp) {
+            if($exp === true) {
                 $htmlOptions['class'] = isset($htmlOptions['class']) ? "{$htmlOptions['class']} $c" : $c;
             }
         }
@@ -89,13 +82,10 @@ class BHtml
      */
     private static function setColumns($sizes, &$htmlOptions)
     {
-        if($sizes !== NULL)
-        {
+        if($sizes !== NULL) {
             $columnSizes = array('xs', 'sm', 'md', 'lg');
-            foreach($sizes as $size => $n)
-            {
-                if($n <= 12 && in_array($size, $columnSizes))
-                {
+            foreach($sizes as $size => $n) {
+                if($n <= 12 && in_array($size, $columnSizes)) {
                     self::addClass("col-$size-$n", $htmlOptions);
                 }
             }
@@ -113,12 +103,9 @@ class BHtml
     {
         $offset = self::getOption('offset', $htmlOptions, true);
         $columnSizes = array('xs', 'sm', 'md', 'lg');
-        if($offset !== null)
-        {
-            foreach($offset as $size => $n)
-            {
-                if(in_array($size, $columnSizes))
-                {
+        if($offset !== null) {
+            foreach($offset as $size => $n) {
+                if(in_array($size, $columnSizes)) {
                     self::addClass("col-$size-offset-$n", $htmlOptions);
                 }
             }
@@ -135,10 +122,8 @@ class BHtml
         self::addClass('clearfix', $htmlOptions);
 
         $columnSizes = array('xs', 'sm', 'md', 'lg');
-        foreach($sizes as $size)
-        {
-            if(in_array($size, $columnSizes))
-            {
+        foreach($sizes as $size) {
+            if(in_array($size, $columnSizes)) {
                 self::addClass("visible-$size", $htmlOptions);
             }
         }
@@ -153,13 +138,10 @@ class BHtml
     private static function setPush($sizes, &$htmlOptions)
     {
         $push = self::getOption('push', $htmlOptions, true);
-        if($push !== null)
-        {
+        if($push !== null) {
             $columnSizes = array('xs', 'sm', 'md', 'lg');
-            foreach($sizes as $size => $n)
-            {
-                if($n <= 12 && in_array($size, $columnSizes))
-                {
+            foreach($sizes as $size => $n) {
+                if($n <= 12 && in_array($size, $columnSizes)) {
                     self::addClass("col-$size-push-$n", $htmlOptions);
                 }
             }
@@ -175,13 +157,10 @@ class BHtml
     private static function setColumnPull($sizes, &$htmlOptions)
     {
         $pull = self::getOption('pull', $htmlOptions, true);
-        if($pull !== null)
-        {
+        if($pull !== null) {
             $columnSizes = array('xs', 'sm', 'md', 'lg');
-            foreach($sizes as $size => $n)
-            {
-                if($n <= 12 && in_array($size, $columnSizes))
-                {
+            foreach($sizes as $size => $n) {
+                if($n <= 12 && in_array($size, $columnSizes)) {
                     self::addClass("col-$size-pull-$n", $htmlOptions);
                 }
             }
@@ -196,8 +175,7 @@ class BHtml
     {
         $pull = self::getOption('pull', $htmlOptions, true);
 
-        if(in_array($pull, array('left', 'right')))
-        {
+        if(in_array($pull, array('left', 'right'))) {
             self::addClass(array("pull-$pull" => $pull !== null), $htmlOptions);
         }
     }
@@ -208,8 +186,7 @@ class BHtml
      */
     private static function setChecked(&$htmlOptions)
     {
-        if(self::getOption('checked', $htmlOptions, true) === true)
-        {
+        if(self::getOption('checked', $htmlOptions, true) === true) {
             $htmlOptions['checked'] = 'checked';
         }
     }
@@ -220,8 +197,7 @@ class BHtml
      */
     private static function setDisabled(&$htmlOptions)
     {
-        if(self::getOption('disabled', $htmlOptions, true) === true)
-        {
+        if(self::getOption('disabled', $htmlOptions, true) === true) {
             $htmlOptions['disabled'] = 'disabled';
         }
     }
@@ -285,6 +261,8 @@ class BHtml
 
         self::setQuickPull($htmlOptions);
 
+        self::setLead($htmlOptions);
+
         $classes = array(
             'center-block' => self::getOption('center', $htmlOptions, true) === true,
             'clearfix' => self::getOption('clearfix', $htmlOptions, true) === true,
@@ -294,8 +272,7 @@ class BHtml
         self::addClass($classes, $htmlOptions);
 
         $options = array('text' => 'textState', 'bg' => 'backgroundState');
-        foreach($options as $prefix => $option)
-        {
+        foreach($options as $prefix => $option) {
             self::setStateStyle($prefix, $option, $htmlOptions);
         }
 
@@ -511,8 +488,7 @@ class BHtml
 
         $render.=self::tag('p', null, $content);
 
-        if($footer !== null)
-        {
+        if($footer !== null) {
             $render.=self::tag('footer', null, $footer);
         }
 
@@ -686,23 +662,18 @@ class BHtml
         );
         self::addClass($classes, $htmlOptions);
 
-        if(self::getOption('responsive', $htmlOptions, true) === true)
-        {
+        if(self::getOption('responsive', $htmlOptions, true) === true) {
             $render = self::openTag('div', array('class' => 'table-responsive'));
-        }
-        else
-        {
+        } else {
             $render = '';
         }
 
         $render.= self::openTag('table', $htmlOptions);
 
-        if($header !== null)
-        {
+        if($header !== null) {
             $render.=self::openTag('thead') . self::openTableRow();
 
-            foreach($header as $h)
-            {
+            foreach($header as $h) {
                 $render.=self::tag('th', array(), $h);
             }
 
@@ -725,8 +696,7 @@ class BHtml
 
         $render.= self::closeTag('table');
 
-        if($responsive === true)
-        {
+        if($responsive === true) {
             $render.= self::closeTag('div');
         }
 
@@ -802,22 +772,18 @@ class BHtml
         $inputSize = self::getOption('inputSize', $htmlOptions, true);
         self::addClass(array("input-$inputSize" => $inputSize !== null), $htmlOptions);
 
-        if(!in_array($type, array('checkbox', 'radio', 'file')))
-        {
+        if(!in_array($type, array('checkbox', 'radio', 'file'))) {
             self::addClass('form-control', $htmlOptions);
         }
 
-        if($sizes !== NULL)
-        {
+        if($sizes !== NULL) {
             $render.=self::openColumn($sizes, array('offset' => $offset ? : array()));
         }
         $render.= self::tag('input', $htmlOptions);
-        if($helpText !== null)
-        {
+        if($helpText !== null) {
             $render.=self::tag('span', array('class' => 'help-block'), $helpText);
         }
-        if($sizes !== NULL)
-        {
+        if($sizes !== NULL) {
             $render.=self::closeColumn();
         }
 
@@ -842,19 +808,15 @@ class BHtml
 
         self::addClass('form-control', $htmlOptions);
 
-        if($sizes !== NULL)
-        {
+        if($sizes !== NULL) {
             $render = self::openColumn($sizes);
-        }
-        else
-        {
+        } else {
             $render = '';
         }
 
         $render.=self::tag('textarea', $htmlOptions, $value);
 
-        if($sizes !== NULL)
-        {
+        if($sizes !== NULL) {
             $render.=BHtml::closeColumn();
         }
 
@@ -874,8 +836,7 @@ class BHtml
      */
     public static function dropDownList($name, $select, $data, $htmlOptions = array())
     {
-        if(self::getOption('multiple', $htmlOptions, true) === true)
-        {
+        if(self::getOption('multiple', $htmlOptions, true) === true) {
             $htmlOptions['multiple'] = 'multiple';
         }
 
@@ -885,18 +846,14 @@ class BHtml
 
         $render = self::openTag('select', $htmlOptions);
 
-        foreach($data as $group => $options)
-        {
-            if(is_array($options) === true)
-            {
+        foreach($data as $group => $options) {
+            if(is_array($options) === true) {
                 $render.=self::openTag('optgroup', array('label' => $group));
 
                 $render.=self::options($options, $select);
 
                 $render.=self::closeTag('optgroup');
-            }
-            else
-            {
+            } else {
                 $render.=self::options(array($group => $options), $select);
             }
         }
@@ -918,8 +875,7 @@ class BHtml
     {
         $render = '';
 
-        foreach($data as $value => $content)
-        {
+        foreach($data as $value => $content) {
             $render.= self::openTag('option', array('value' => $value, 'selected' => in_array($value, $select)));
             $render.=$content;
             $render.=self::closeTag('option');
@@ -1014,19 +970,15 @@ class BHtml
 
         self::setChecked($htmlOptions);
 
-        if($sizes !== null)
-        {
+        if($sizes !== null) {
             $render.=self::openColumn($sizes, array('offset' => $offset ? : array()));
         }
 
-        if($inline !== true)
-        {
+        if($inline !== true) {
             $containerOptions = $containerOptions ? : array();
             self::addClass('checkbox', $containerOptions);
             $render .= self::openTag('div', $containerOptions);
-        }
-        else
-        {
+        } else {
 
             $labelOptions = $labelOptions ? : array();
             self::addClass('checkbox-inline', $labelOptions);
@@ -1034,13 +986,11 @@ class BHtml
 
         $render.=self::tag('label', $labelOptions, self::input('checkbox', $name, $htmlOptions) . $label);
 
-        if($inline !== true)
-        {
+        if($inline !== true) {
             $render.=self::closeTag('div');
         }
 
-        if($sizes !== null)
-        {
+        if($sizes !== null) {
             $render.=self::closeColumn();
         }
 
@@ -1096,32 +1046,26 @@ class BHtml
 
         self::setChecked($htmlOptions);
 
-        if($sizes !== NULL)
-        {
+        if($sizes !== NULL) {
             $render.=self::openColumn($sizes, array('offset' => self::getOption('offset', $htmlOptions, true)));
         }
 
-        if($inline !== true)
-        {
+        if($inline !== true) {
             $containerOptions = $containerOptions? : array();
             self::addClass('radio', $containerOptions);
             $render = self::openTag('div', $containerOptions);
-        }
-        else
-        {
+        } else {
             $labelOptions = $labelOptions ? : array();
             self::addClass('radio-inline', $labelOptions);
         }
 
         $render.=self::tag('label', $labelOptions, self::input('radio', $name, $htmlOptions) . $label);
 
-        if($inline !== true)
-        {
+        if($inline !== true) {
             $render.=self::closeTag('div');
         }
 
-        if($sizes !== null)
-        {
+        if($sizes !== null) {
             $render.=self::closeColumn();
         }
 
@@ -1282,8 +1226,7 @@ class BHtml
      */
     private static function setStateStyle($prefix, $name, &$htmlOptions)
     {
-        switch($prefix)
-        {
+        switch($prefix) {
             case 'bg':
                 $allowedValues = array('primary', 'success', 'info', 'warning', 'danger');
                 break;
@@ -1311,10 +1254,8 @@ class BHtml
         }
 
         $name = self::getOption($name, $htmlOptions, true);
-        if(in_array($name, $allowedValues))
-        {
-            if($prefix !== '')
-            {
+        if(in_array($name, $allowedValues)) {
+            if($prefix !== '') {
                 $prefix.='-';
             }
             self::addClass("$prefix$name", $htmlOptions);
@@ -1338,33 +1279,25 @@ class BHtml
      */
     private static function setVisibility(&$htmlOptions)
     {
-        foreach(array('visible', 'hidden') as $state)
-        {
+        foreach(array('visible', 'hidden') as $state) {
             $visibility = self::getOption($state, $htmlOptions, true);
-            if($visibility !== null)
-            {
-                if(is_array($visibility))
-                {
+            if($visibility !== null) {
+                if(is_array($visibility)) {
                     $columnSizes = array('xs', 'sm', 'md', 'lg', 'print');
                     $displayTipes = array('block', 'inline', 'inline-block');
-                    switch($state)
-                    {
+                    switch($state) {
                         case 'hidden':
-                            foreach($visibility as $size)
-                            {
+                            foreach($visibility as $size) {
                                 self::addClass(array("$state-$size" => in_array($size, $columnSizes)), $htmlOptions);
                             }
                             break;
                         case 'visible':
-                            foreach($visibility as $size => $display)
-                            {
+                            foreach($visibility as $size => $display) {
                                 self::addClass(array("$state-$size-$display" => in_array($size, $columnSizes) && in_array($display, $displayTipes)), $htmlOptions);
                             }
                             break;
                     }
-                }
-                else
-                {
+                } else {
                     $classes = array(
                         'show' => $visibility === true && $state === 'visible',
                         'hidden' => $visibility === true && $state === 'hidden',
@@ -1479,8 +1412,7 @@ class BHtml
     private static function setTextAlignment(&$htmlOptions)
     {
         $alignment = self::getOption('textAlignment', $htmlOptions, true);
-        if(in_array($alignment, array('left', 'center', 'right', 'justify')))
-        {
+        if(in_array($alignment, array('left', 'center', 'right', 'justify', 'nowrap'))) {
             self::addClass("text-$alignment", $htmlOptions);
         }
     }
@@ -1492,8 +1424,7 @@ class BHtml
     private static function setTextTransform(&$htmlOptions)
     {
         $transform = self::getOption('textTransform', $htmlOptions, true);
-        if(in_array($transform, array('lowercase', 'uppercase', 'capitalize')))
-        {
+        if(in_array($transform, array('lowercase', 'uppercase', 'capitalize'))) {
             self::addClass("text-$transform", $htmlOptions);
         }
     }
@@ -1510,8 +1441,7 @@ class BHtml
     public static function checkBoxList($name, $select, $data, $htmlOptions = array())
     {
         $id = self::getOption('id', $htmlOptions, true);
-        if($id === null)
-        {
+        if($id === null) {
             $id = $name;
         }
 
@@ -1519,14 +1449,12 @@ class BHtml
 
         $render = '';
 
-        foreach($data as $value => $label)
-        {
+        foreach($data as $value => $label) {
             $htmlOptions['label'] = $label;
             $htmlOptions['id'] = "{$id}_{$i}";
             $htmlOptions['value'] = $value;
 
-            if(in_array($value, $select) === true)
-            {
+            if(in_array($value, $select) === true) {
                 $htmlOptions['checked'] = true;
             }
 
@@ -1552,8 +1480,7 @@ class BHtml
     public static function radioButtonList($name, $select, $data, $htmlOptions = array())
     {
         $id = self::getOption('id', $htmlOptions, true);
-        if($id === null)
-        {
+        if($id === null) {
             $id = $name;
         }
 
@@ -1561,14 +1488,12 @@ class BHtml
 
         $render = '';
 
-        foreach($data as $value => $label)
-        {
+        foreach($data as $value => $label) {
             $htmlOptions['label'] = $label;
             $htmlOptions['id'] = "{$id}_{$i}";
             $htmlOptions['value'] = $value;
 
-            if($value == $select)
-            {
+            if($value == $select) {
                 $htmlOptions['checked'] = true;
             }
 
@@ -1615,15 +1540,13 @@ class BHtml
 
         $result = self::openTag('div', $htmlOptions);
 
-        if($prepend !== NULL)
-        {
+        if($prepend !== NULL) {
             $result.=self::inputGroupAddOn($prepend);
         }
 
         $result.=self::input('text', $name, $inputOptions);
 
-        if($append !== NULL)
-        {
+        if($append !== NULL) {
             $result.=self::inputGroupAddOn($append);
         }
 
@@ -1653,8 +1576,7 @@ class BHtml
         self::addClass('input-group-addon', $htmlOptions);
 
         $innerOptions = self::getOption('innerOptions', $htmlOptions, true);
-        if($innerOptions === NULL)
-        {
+        if($innerOptions === NULL) {
             $innerOptions = array();
         }
         $text = self::getOption('text', $htmlOptions, true);
@@ -1662,8 +1584,7 @@ class BHtml
 
         $result = self::openTag('span', $htmlOptions);
 
-        switch($type)
-        {
+        switch($type) {
             case 'radio':
                 $innerOptions['type'] = 'radio';
                 $content = self::tag('input', $innerOptions, false);
@@ -1715,23 +1636,19 @@ class BHtml
 
         $link = $links ? : array();
 
-        foreach($links as $link)
-        {
+        foreach($links as $link) {
             $itemOptions = self::getOption('itemOptions', $link, true);
-            if($itemOptions === null)
-            {
+            if($itemOptions === null) {
                 $itemOptions = array();
             }
 
             $linkOptions = self::getOption('linkOptions', $link);
-            if($linkOptions === NULL)
-            {
+            if($linkOptions === NULL) {
                 $linkOptions = array();
             }
             $linkOptions['href'] = self::getOption('url', $link);
 
-            if(self::getOption('active', $link, true) === true)
-            {
+            if(self::getOption('active', $link, true) === true) {
                 self::addClass('active', $itemOptions);
             }
 
@@ -1769,19 +1686,16 @@ class BHtml
 
         $result = self::openTag('ol', $htmlOptions);
 
-        foreach($links as $link)
-        {
+        foreach($links as $link) {
             $content = self::getOption('content', $link);
 
             $itemOptions = self::getOption('htmlOptions', $link) ? : array();
-            if(self::getOption('active', $link) === true)
-            {
+            if(self::getOption('active', $link) === true) {
                 self::addClass('active', $itemOptions);
             }
 
             $url = self::getOption('url', $link);
-            if($url !== NULL)
-            {
+            if($url !== NULL) {
                 $linkOptions = self::getOption('linkOptions', $link) ? : array();
                 $linkOptions['href'] = $url;
 
@@ -1893,8 +1807,7 @@ class BHtml
 
         $result.=self::tag('a', $linkOptions, $image);
 
-        if($caption !== NULL)
-        {
+        if($caption !== NULL) {
             self::addClass('caption', $captionOptions);
             $result.=self::tag('div', $captionOptions, $caption);
         }
@@ -1947,8 +1860,7 @@ class BHtml
         self::addClass('well', $htmlOptions);
 
         $wellSize = self::getOption('wellSize', $htmlOptions, true);
-        if($wellSize !== NULL)
-        {
+        if($wellSize !== NULL) {
             self::addClass("well-$wellSize", $htmlOptions);
         }
 
@@ -1986,8 +1898,7 @@ class BHtml
      */
     private static function setNavStyle($navStyle, &$htmlOptions)
     {
-        if($navStyle !== NULL && in_array($navStyle, array('tabs', 'pills')))
-        {
+        if($navStyle !== NULL && in_array($navStyle, array('tabs', 'pills'))) {
             self::addClass("nav-$navStyle", $htmlOptions);
         }
     }
@@ -2040,12 +1951,10 @@ class BHtml
     private static function renderModalHeader($htmlOptions)
     {
         $result = '';
-        if(is_array($htmlOptions))
-        {
+        if(is_array($htmlOptions)) {
             $result.=self::openTag('div', array('class' => 'modal-header'));
 
-            if(self::getOption('closeButton', $htmlOptions, true) === true)
-            {
+            if(self::getOption('closeButton', $htmlOptions, true) === true) {
                 $result.=self::tag('button', array('type' => 'button', 'class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true'), '&times;');
             }
 
@@ -2068,8 +1977,7 @@ class BHtml
     private static function renderModalFooter($htmlOptions)
     {
         $result = '';
-        if(is_array($htmlOptions))
-        {
+        if(is_array($htmlOptions)) {
             self::addClass('modal-footer', $htmlOptions);
 
             $content = self::getOption('content', $htmlOptions, true);
@@ -2109,8 +2017,7 @@ class BHtml
     {
         self::addClass('carousel slide', $htmlOptions);
         $htmlOptions['id'] = $id;
-        if(self::getOption('autoStart', $htmlOptions, true))
-        {
+        if(self::getOption('autoStart', $htmlOptions, true)) {
             $htmlOptions['data-ride'] = 'carousel';
         }
         $htmlOptions['data-interval'] = self::getOption('interval', $htmlOptions, true);
@@ -2128,10 +2035,8 @@ class BHtml
         $result.=self::openTag('div', $htmlOptions);
 
         /* Items */
-        foreach($items as $item)
-        {
-            if($flagIndicators)
-            {
+        foreach($items as $item) {
+            if($flagIndicators) {
                 $indicatorOptions = array('data-target' => "#$id", 'data-slide-to' => $i);
 
                 self::addClass(array('active' => self::getOption('active', $item)), $indicatorOptions);
@@ -2153,16 +2058,14 @@ class BHtml
 
             $carouselContent .= self::image($item['src'], self::getOption('htmlOptions', $item)? : array());
 
-            if($caption !== NULL)
-            {
+            if($caption !== NULL) {
                 $carouselContent.=self::tag('div', array('class' => 'carousel-caption'), $caption);
             }
 
             $carouselContent.=self::closeTag('div');
         }
 
-        if($flagIndicators)
-        {
+        if($flagIndicators) {
             $result.=self::openTag('ol', array('class' => 'carousel-indicators'));
             $result.=$indicators;
             $result.=self::closeTag('ol');
@@ -2174,8 +2077,7 @@ class BHtml
 
         $result.=self::closeTag('div');
 
-        if($flagControls)
-        {
+        if($flagControls) {
             $result.=self::tag('a', array('class' => 'left carousel-control', 'href' => "#$id", 'data-slide' => 'prev'), self::tag('span', array('class' => 'glyphicon glyphicon-chevron-left'), ''));
             $result.=self::tag('a', array('class' => 'right carousel-control', 'href' => "#$id", 'data-slide' => 'next'), self::tag('span', array('class' => 'glyphicon glyphicon-chevron-right'), ''));
         }
@@ -2186,10 +2088,9 @@ class BHtml
     }
 
 //TODO: affix;
-//PENDING: p.lead
 
     /**
-     * Render a run of highlighed text.
+     * Render a run of highlighed text. - http://getbootstrap.com/css/#type-inline-text
      * @param string $text
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              see {@link BHtml::tag()}
@@ -2219,6 +2120,18 @@ class BHtml
     public static function samp($text, $htmlOptions = array())
     {
         return self::tag('samp', $htmlOptions, $text);
+    }
+
+    /**
+     * Set the lead body copy class - http://getbootstrap.com/css/#type-body-copy
+     * @param array $htmlOptions
+     */
+    private static function setLead(&$htmlOptions)
+    {
+        $lead = self::getOption("lead", $htmlOptions, true);
+        if($lead === true) {
+            self::addClass("lead", $htmlOptions);
+        }
     }
 
     //TODO: Forms / Validation states / .has-feedback

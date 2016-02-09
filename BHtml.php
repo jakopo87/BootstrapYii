@@ -676,13 +676,12 @@ class BHtml
 
         self::addClass('table', $htmlOptions);
 
-        $classes = array(
-            'table-striped' => self::getOption('striped', $htmlOptions, true),
-            'table-bordered' => self::getOption('bordered', $htmlOptions, true),
-            'table-hover' => self::getOption('hover', $htmlOptions, true),
-            'table-condensed' => self::getOption('condensed', $htmlOptions, true),
-        );
-        self::addClass($classes, $htmlOptions);
+        foreach(array("striped", "bordered", "hover", "condensed") as $style) {
+            if(self::getOption($style, $htmlOptions) === true) {
+                $htmlOptions[$style] = $style;
+                self::setStateStyle("table", $style, $htmlOptions);
+            }
+        }
 
         if(self::getOption('responsive', $htmlOptions, true) === true) {
             $render = self::openTag('div', array('class' => 'table-responsive'));
@@ -1270,16 +1269,19 @@ class BHtml
                 $allowedValues = array('active', 'success', 'info', 'warning', 'danger');
                 $prefix = '';
                 break;
+            case 'table':
+                $allowedValues = array("striped", "bordered", "hover", "condensed");
+                break;
             default:
                 $allowedValues = array();
                 break;
         }
-
-        if(in_array(self::getOption($name, $htmlOptions, true), $allowedValues)) {
+        $class = self::getOption($name, $htmlOptions, true);
+        if(in_array($class, $allowedValues)) {
             if($prefix !== '') {
                 $prefix.='-';
             }
-            self::addClass("$prefix$name", $htmlOptions);
+            self::addClass("{$prefix}{$class}", $htmlOptions);
         }
     }
 

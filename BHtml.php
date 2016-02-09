@@ -2166,6 +2166,18 @@ class BHtml
         return self::tag("var", $htmlOptions, $content);
     }
 
+    /**
+     * Render a sample tag.
+     * @param string $content
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::tag()}
+     * @return string
+     */
+    public static function sample($content, $htmlOptions = array())
+    {
+        return self::tag($content, $htmlOptions);
+    }
+
     //TODO: Forms / Validation states / .has-feedback
     //TODO: Forms / Control Sizing / Horizontal form group sizes
     //TODO: Forms / Control Sizing / Column sizing

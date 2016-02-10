@@ -1007,7 +1007,7 @@ class BHtml
             self::addClass('checkbox-inline', $labelOptions);
         }
 
-        $render.=self::tag('label', $labelOptions, self::input('checkbox', $name, $htmlOptions) . $label);
+        $render.=self::tag('label', $labelOptions, self::input('checkbox', $name, $htmlOptions) . " {$label}");
 
         if($inline !== true) {
             $render.=self::closeTag('div');

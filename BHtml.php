@@ -1108,7 +1108,18 @@ class BHtml
     {
         self::addClass('form-control-static', $htmlOptions);
 
-        return self::tag('p', $htmlOptions, $value);
+        $sizes = self::getOption('sizes', $htmlOptions, true);
+        $offset = self::getOption('offset', $htmlOptions, true);
+
+        $render = "";
+        if($sizes !== NULL) {
+            $render.=self::openColumn($sizes, array('offset' => $offset ? : array()));
+        }
+        $render.=self::tag('p', $htmlOptions, $value);
+        if($sizes !== NULL) {
+            $render.=self::closeColumn();
+        }
+        return $render;
     }
 
     /**

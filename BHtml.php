@@ -773,6 +773,8 @@ class BHtml
      *                              boolean <b>disabled</b>: disable the input;<br/>
      *                              string <b>inputSize</b>: make the input taller or shorter, allowed values are: sm, lg;<br/>
      *                              string <b>helpText</b>: help text for the input control;<br/>
+     *                              array <b>sizes</b>: mixed array containing the sizes for different devices: the keys
+     *                               are the column type and the value is the size;
      *                              see {@link BHtml::tag()};
      * @return string
      */
@@ -1900,13 +1902,13 @@ class BHtml
     }
 
     /**
-     * Render a textual label(span).
+     * Render a textual label.
      * @param string    $content        Content of the label
      * @param array     $htmlOptions    List of attributes and other options:<br/>
      *                                  see {@link BHtml::tag()};
      * @return string
      */
-    public static function label($content, $htmlOptions)
+    public static function textLabel($content, $htmlOptions)
     {
         self::setStateStyle('label', 'labelState', $htmlOptions);
 

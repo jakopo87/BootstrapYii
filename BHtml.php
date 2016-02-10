@@ -32,6 +32,8 @@
 class BHtml
 {
 
+    private static $isHorizontal = false;
+
     /**
      * Return a value from an array of attributes and optionally removes it.
      * @param string $option Key of the attribute;
@@ -916,10 +918,9 @@ class BHtml
      */
     public static function openForm($htmlOptions = array())
     {
-
         $classes = array(
             'form-inline' => self::getOption('inline', $htmlOptions, true),
-            'form-horizontal' => self::getOption('horizontal', $htmlOptions, true),
+            'form-horizontal' => (self::$isHorizontal = self::getOption('horizontal', $htmlOptions, true)),
         );
 
         self::addClass($classes, $htmlOptions);
@@ -933,6 +934,7 @@ class BHtml
      */
     public static function closeForm()
     {
+        self::$isHorizontal = false;
         return self::closeTag('form');
     }
 
@@ -947,7 +949,7 @@ class BHtml
      */
     public static function inputLabel($label, $htmlOptions = array())
     {
-        self::addClass(array('control-label' => self::getOption('screenReader', $htmlOptions) !== true), $htmlOptions);
+        self::addClass(array('control-label' => self::$isHorizontal && self::getOption('screenReader', $htmlOptions) !== true), $htmlOptions);
 
         self::setColumns(self::getOption('sizes', $htmlOptions, true), $htmlOptions);
 

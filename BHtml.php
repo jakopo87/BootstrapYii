@@ -958,7 +958,6 @@ class BHtml
     {
         self::addClass(array(
             'control-label' => self::$isHorizontal && self::getOption('screenReader', $htmlOptions) !== true,
-            'sr-only' => self::getOption('screenReader', $htmlOptions)
                 ), $htmlOptions);
 
         self::setColumns(self::getOption('sizes', $htmlOptions, true), $htmlOptions);
@@ -2203,6 +2202,19 @@ class BHtml
     public static function sample($content, $htmlOptions = array())
     {
         return self::tag($content, $htmlOptions);
+    }
+
+    /**
+     * Render an help block.
+     * @param string $content
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function helpBlock($content, $htmlOptions = array())
+    {
+        self::addClass("help-block", $htmlOptions);
+
+        return self::tag("span", $htmlOptions, $content);
     }
 
     //TODO: Forms / Validation states / .has-feedback

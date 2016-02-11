@@ -950,12 +950,16 @@ class BHtml
      * @param array $htmlOptions    List of attributes and other options:<br/>
      *                              array <b>sizes</b>: mixed array containing the sizes for different devices: the keys
      *                               are the column type and the value is the size;
+     *                              boolean <b>screenReader</b>: styles the label for screen reader programs;
      *                              see {@link BHtml::tag()};
      * @return string
      */
     public static function inputLabel($label, $htmlOptions = array())
     {
-        self::addClass(array('control-label' => self::$isHorizontal && self::getOption('screenReader', $htmlOptions) !== true), $htmlOptions);
+        self::addClass(array(
+            'control-label' => self::$isHorizontal && self::getOption('screenReader', $htmlOptions) !== true,
+            'sr-only' => self::getOption('screenReader', $htmlOptions)
+                ), $htmlOptions);
 
         self::setColumns(self::getOption('sizes', $htmlOptions, true), $htmlOptions);
 

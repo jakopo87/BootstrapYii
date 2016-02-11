@@ -2216,4 +2216,5 @@ class BHtml
 
         return self::tag("span", $htmlOptions, $content);
     }
+
 }

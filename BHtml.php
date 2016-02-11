@@ -2216,9 +2216,4 @@ class BHtml
 
         return self::tag("span", $htmlOptions, $content);
     }
-
-    //TODO: Forms / Validation states / .has-feedback
-    //TODO: Forms / Control Sizing / Horizontal form group sizes
-    //TODO: Forms / Control Sizing / Column sizing
-    //TODO: sr-only + sr-only-focusable
 }

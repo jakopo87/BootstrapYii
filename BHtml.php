@@ -867,9 +867,15 @@ class BHtml
 
         $htmlOptions['name'] = $name;
 
+        $empty = self::getOption("empty", $htmlOptions, true);
+
         self::addClass('form-control', $htmlOptions);
 
         $render = self::openTag('select', $htmlOptions);
+
+        if($empty !== null) {
+            $render.=self::tag("option", array(), $empty);
+        }
 
         foreach($data as $group => $options) {
             if(is_array($options) === true) {

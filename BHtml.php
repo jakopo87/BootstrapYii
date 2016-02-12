@@ -1360,7 +1360,7 @@ class BHtml
      */
     private static function setVisibility(&$htmlOptions)
     {
-        foreach(array('visible', 'hidden') as $state) {
+        foreach(array('show','visible', 'hidden') as $state) {
             $visibility = self::getOption($state, $htmlOptions, true);
             if($visibility !== null) {
                 if(is_array($visibility)) {
@@ -1380,7 +1380,7 @@ class BHtml
                     }
                 } else {
                     $classes = array(
-                        'show' => $visibility === true && $state === 'visible',
+                        'show' => $visibility === true && $state === 'show',
                         'hidden' => $visibility === true && $state === 'hidden',
                     );
                     self::addClass($classes, $htmlOptions);

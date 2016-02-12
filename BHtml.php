@@ -785,7 +785,6 @@ class BHtml
         $render = '';
 
         $helpText = self::getOption('helpText', $htmlOptions, true);
-
         $sizes = self::getOption('sizes', $htmlOptions, true);
         $offset = self::getOption('offset', $htmlOptions, true);
 
@@ -794,10 +793,14 @@ class BHtml
 
         self::setDisabled($htmlOptions);
 
+
         $inputSize = self::getOption('inputSize', $htmlOptions, true);
         self::addClass(array("input-$inputSize" => $inputSize !== null), $htmlOptions);
 
-        if(!in_array($type, array('checkbox', 'radio', 'file'))) {
+        if(in_array($type, array("button", "submit")) === true) {
+            self::addClass("btn", $htmlOptions);
+            self::setStateStyle("btn", "buttonState", $htmlOptions);
+        } else if(in_array($type, array('checkbox', 'radio', 'file')) === false) {
             self::addClass('form-control', $htmlOptions);
         }
 

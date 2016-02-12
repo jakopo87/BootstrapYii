@@ -342,6 +342,8 @@ class BHtml
 
         self::addClass(array('img-responsive' => self::getOption('responsive', $htmlOptions, true)), $htmlOptions);
 
+        self::setStateStyle("img", "shape", $htmlOptions);
+
         return self::tag('img', $htmlOptions);
     }
 
@@ -1324,6 +1326,9 @@ class BHtml
                 break;
             case 'table':
                 $allowedValues = array("striped", "bordered", "hover", "condensed");
+                break;
+            case 'img':
+                $allowedValues = array("rounded", "circle", "thumbnail");
                 break;
             default:
                 $allowedValues = array();

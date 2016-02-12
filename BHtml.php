@@ -1397,12 +1397,11 @@ class BHtml
      */
     public static function closeButton($htmlOptions = array())
     {
-        $htmlOptions['aria-hidden'] = "true";
         $htmlOptions['type'] = 'button';
 
         self::addClass('close', $htmlOptions);
 
-        return self::tag('button', $htmlOptions, '&times;');
+        return self::tag('button', $htmlOptions, self::tag("span", array("aria-hidden" => "true"), "&times;"));
     }
 
     /**

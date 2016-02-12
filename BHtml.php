@@ -1210,6 +1210,32 @@ class BHtml
     }
 
     /**
+     * Render a button tag.
+     * @param string $content Content of the button;
+     * @param string $href Url of the button;
+     * @param array $htmlOptions    List of attributes and other options:<br/>
+     *                              see {@link BHtml::button()};
+     * @return string
+     */
+    public static function linkButton($content, $href, $htmlOptions = array())
+    {
+        /* Prevent form submit */
+        $htmlOptions['role'] = 'button';
+        $htmlOptions["href"] = $href;
+
+        self::setbuttonState($htmlOptions);
+
+        $size = self::getOption('buttonSize', $htmlOptions, true);
+        self::addClass(array("btn-{$size}" => $size !== null), $htmlOptions);
+
+        self::addClass(array("btn-block" => self::getOption('block', $htmlOptions, true)), $htmlOptions);
+
+        self::addClass(array("active" => self::getOption('active', $htmlOptions, true)), $htmlOptions);
+
+        return self::tag('a', $htmlOptions, $content);
+    }
+
+    /**
      * Render a link
      * @param string $content Text to display;
      * @param string $url Url of the link, it does not get encoded;
